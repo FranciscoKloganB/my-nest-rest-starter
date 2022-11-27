@@ -12,16 +12,10 @@ import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private repository: UserRepository,
-    private readonly logger: AppLogger,
-  ) {
+  constructor(private repository: UserRepository, private readonly logger: AppLogger) {
     this.logger.setContext(UserService.name);
   }
-  async createUser(
-    ctx: RequestContext,
-    input: CreateUserInput,
-  ): Promise<UserOutput> {
+  async createUser(ctx: RequestContext, input: CreateUserInput): Promise<UserOutput> {
     this.logger.log(ctx, `${this.createUser.name} was called`);
 
     const user = plainToClass(User, input);
@@ -39,16 +33,20 @@ export class UserService {
   async validateUsernamePassword(
     ctx: RequestContext,
     username: string,
-    pass: string,
+    pass: string
   ): Promise<UserOutput> {
     this.logger.log(ctx, `${this.validateUsernamePassword.name} was called`);
 
     this.logger.log(ctx, `calling ${UserRepository.name}.findOne`);
     const user = await this.repository.findOne({ where: { username } });
-    if (!user) throw new UnauthorizedException();
+    if (!user) {
+      throw new UnauthorizedException();
+    }
 
     const match = await compare(pass, user.password);
-    if (!match) throw new UnauthorizedException();
+    if (!match) {
+      throw new UnauthorizedException();
+    }
 
     return plainToClass(UserOutput, user, {
       excludeExtraneousValues: true,
@@ -58,7 +56,7 @@ export class UserService {
   async getUsers(
     ctx: RequestContext,
     limit: number,
-    offset: number,
+    offset: number
   ): Promise<{ users: UserOutput[]; count: number }> {
     this.logger.log(ctx, `${this.getUsers.name} was called`);
 
@@ -98,10 +96,7 @@ export class UserService {
     });
   }
 
-  async findByUsername(
-    ctx: RequestContext,
-    username: string,
-  ): Promise<UserOutput> {
+  async findByUsername(ctx: RequestContext, username: string): Promise<UserOutput> {
     this.logger.log(ctx, `${this.findByUsername.name} was called`);
 
     this.logger.log(ctx, `calling ${UserRepository.name}.findOne`);
@@ -115,7 +110,7 @@ export class UserService {
   async updateUser(
     ctx: RequestContext,
     userId: number,
-    input: UpdateUserInput,
+    input: UpdateUserInput
   ): Promise<UserOutput> {
     this.logger.log(ctx, `${this.updateUser.name} was called`);
 

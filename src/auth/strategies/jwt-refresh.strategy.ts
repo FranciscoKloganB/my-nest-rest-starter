@@ -9,7 +9,7 @@ import { UserRefreshTokenClaims } from '../dtos/auth-token-output.dto';
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(
   Strategy,
-  STRATEGY_JWT_REFRESH,
+  STRATEGY_JWT_REFRESH
 ) {
   constructor(private readonly configService: ConfigService) {
     super({

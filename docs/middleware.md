@@ -1,24 +1,24 @@
-## Middleware
+# Middleware
 
 We use `middleware` to access/modify request and response objects. Middleware functions get executed before the router handler gets executed. More about `middleware` can be found [here in nestjs documentation](https://docs.nestjs.com/middleware).
 
-This starter repository comes with the following middlewares:-
+This starter repository comes with the following middlewares:
 
 - [Request-ID middleware](#request-ID-middleware)
 - [Logger middleware](#logger-middleware)
 
-### Request-ID middleware
+## Request ID middleware
 
 `RequestIdMiddleware` is declared under the `shared` module and initiated in `main.ts`. It adds a unique request-id to each HTTP call header as `x-request-id`. Unique request-id is very important to log/debug API calls, especially in a microservice environment.
 
-#### Remove Request-ID middleware
+### Remove Request-ID middleware
 
 To remove `RequestIdMiddleware` middleware,
 
 - remove following lines of logger initiation in `main.ts`
 
-```
-  app.use(RequestIdMiddleware);
+```typescript
+app.use(RequestIdMiddleware);
 ```
 
 - Optionally remove `src/shared/middlewares/request-id` folder
@@ -40,8 +40,8 @@ To remove the pino logger
 
 - Remove logger initiation in `main.ts`
 
-```
-  app.useLogger(new AppLogger(app.get(Logger)));
+```typescript
+app.useLogger(new AppLogger(app.get(Logger)));
 ```
 
 - Remove `AppLoggerModule` module from `imports` and `exports` sections of `SharedModule` declaration (`src/shared/shared.module.ts`).

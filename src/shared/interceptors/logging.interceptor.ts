@@ -32,7 +32,7 @@ export class LoggingInterceptor implements NestInterceptor {
         const resData = { method, statusCode, responseTime };
 
         this.appLogger.log(ctx, 'Request completed', { resData });
-      }),
+      })
     );
   }
 }

@@ -12,12 +12,7 @@ import { ArticleAclService } from './services/article-acl.service';
 
 @Module({
   imports: [SharedModule, TypeOrmModule.forFeature([Article]), UserModule],
-  providers: [
-    ArticleService,
-    JwtAuthStrategy,
-    ArticleAclService,
-    ArticleRepository,
-  ],
+  providers: [ArticleService, JwtAuthStrategy, ArticleAclService, ArticleRepository],
   controllers: [ArticleController],
   exports: [ArticleService],
 })

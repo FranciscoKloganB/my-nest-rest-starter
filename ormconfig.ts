@@ -4,7 +4,6 @@ import { DataSource } from 'typeorm';
 dotenv.config();
 
 const typeOrmConfig = new DataSource({
-  type: 'postgres',
   host: process.env.DB_HOST,
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : null,
   database: process.env.DB_NAME,
@@ -13,7 +12,9 @@ const typeOrmConfig = new DataSource({
   entities: [__dirname + '/src/**/entities/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   migrationsRun: false,
+  schema: 'public',
   synchronize: false,
+  type: 'postgres',
 });
 
 export default typeOrmConfig;

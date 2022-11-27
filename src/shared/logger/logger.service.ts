@@ -14,15 +14,15 @@ export class AppLogger {
 
   constructor() {
     this.logger = createLogger({
-      transports: [new transports.Console()],
+      transports: [
+        new transports.Console({
+          silent: process.env.LOG_SILENT === 'true',
+        }),
+      ],
     });
   }
 
-  error(
-    ctx: RequestContext,
-    message: string,
-    meta?: Record<string, any>,
-  ): Logger {
+  error(ctx: RequestContext, message: string, meta?: Record<string, any>): Logger {
     const timestamp = new Date().toISOString();
 
     return this.logger.error({
@@ -34,11 +34,7 @@ export class AppLogger {
     });
   }
 
-  warn(
-    ctx: RequestContext,
-    message: string,
-    meta?: Record<string, any>,
-  ): Logger {
+  warn(ctx: RequestContext, message: string, meta?: Record<string, any>): Logger {
     const timestamp = new Date().toISOString();
 
     return this.logger.warn({
@@ -50,11 +46,7 @@ export class AppLogger {
     });
   }
 
-  debug(
-    ctx: RequestContext,
-    message: string,
-    meta?: Record<string, any>,
-  ): Logger {
+  debug(ctx: RequestContext, message: string, meta?: Record<string, any>): Logger {
     const timestamp = new Date().toISOString();
 
     return this.logger.debug({
@@ -66,11 +58,7 @@ export class AppLogger {
     });
   }
 
-  verbose(
-    ctx: RequestContext,
-    message: string,
-    meta?: Record<string, any>,
-  ): Logger {
+  verbose(ctx: RequestContext, message: string, meta?: Record<string, any>): Logger {
     const timestamp = new Date().toISOString();
 
     return this.logger.verbose({
@@ -82,11 +70,7 @@ export class AppLogger {
     });
   }
 
-  log(
-    ctx: RequestContext,
-    message: string,
-    meta?: Record<string, any>,
-  ): Logger {
+  log(ctx: RequestContext, message: string, meta?: Record<string, any>): Logger {
     const timestamp = new Date().toISOString();
 
     return this.logger.info({

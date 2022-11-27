@@ -46,16 +46,12 @@ describe('AuthController', () => {
       registerInputDto.username = 'john@example.com';
       registerInputDto.password = '123123';
 
-      jest
-        .spyOn(mockedAuthService, 'register')
-        .mockImplementation(async () => null);
+      jest.spyOn(mockedAuthService, 'register').mockImplementation(async () => null);
 
-      expect(await authController.registerLocal(ctx, registerInputDto)).toEqual(
-        {
-          data: null,
-          meta: {},
-        },
-      );
+      expect(await authController.registerLocal(ctx, registerInputDto)).toEqual({
+        data: null,
+        meta: {},
+      });
     });
   });
 
@@ -93,10 +89,7 @@ describe('AuthController', () => {
     });
 
     it('should generate refresh token', async () => {
-      const response = await authController.refreshToken(
-        ctx,
-        refreshTokenInputDto,
-      );
+      const response = await authController.refreshToken(ctx, refreshTokenInputDto);
 
       expect(mockedAuthService.refreshToken).toBeCalledWith(ctx);
       expect(response.data).toEqual(authToken);

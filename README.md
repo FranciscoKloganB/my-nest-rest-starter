@@ -1,29 +1,31 @@
-## NestJS Starter Kit [v2]
+# justcollected.com
+
+## Based on a NestJS Starter Kit [v2]
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Build Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/build/badge.svg)
 ![Tests Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/tests/badge.svg)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=monstar-lab-oss_nestjs-starter-rest-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=monstar-lab-oss_nestjs-starter-rest-api)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=monstar-lab-oss_nestjs-starter-rest-api&metric=coverage)](https://sonarcloud.io/dashboard?id=monstar-lab-oss_nestjs-starter-rest-api)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=monstar-lab-oss_nestjs-starter-rest-api&metric=code_smells)](https://sonarcloud.io/dashboard?id=monstar-lab-oss_nestjs-starter-rest-api)
 
 This starter kit has the following outline:
 
 - Monolithic Project.
 - REST API
 
-This is a Github Template Repository, so it can be easily [used as a starter template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) for other repositories.
+The baseline for this project was taken from [MonstraLab OSS template](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/blob/master/README.md)
 
-## Sample implementations
+### Sample implementations
 
-To view sample implementations based on this starter kit, please visit the [nestjs-sample-solutions](https://github.com/monstar-lab-oss/nestjs-sample-solutions) repository.
+To view sample implementations based on this starter kit, please visit the
+[nestjs-sample-solutions](https://github.com/monstar-lab-oss/nestjs-sample-solutions)
+repository.
 
-## Starter kit Features
+### Starter kit Features
 
-One of our main principals has been to keep the starter kit as lightweight as possible. With that in mind, here are some of the features that we have added in this starter kit.
+One of our main principals has been to keep the starter kit as lightweight as possible.
+With that in mind, here are some of the features that we have added in this starter kit.
 
 | Feature                  | Info               | Progress |
-|--------------------------|--------------------|----------|
+| ------------------------ | ------------------ | -------- |
 | Authentication           | JWT                | Done     |
 | Authorization            | RBAC (Role based)  | Done     |
 | ORM Integration          | TypeORM            | Done     |
@@ -35,148 +37,217 @@ One of our main principals has been to keep the starter kit as lightweight as po
 | Auto-generated OpenAPI   | -                  | Done     |
 | Auto-generated ChangeLog | -                  | WIP      |
 
-Apart from these features above, our start-kit comes loaded with a bunch of minor awesomeness like prettier integration, commit-linting husky hooks, package import sorting, SonarCloud github actions, docker-compose for database dependencies, etc. :D
+Apart from these features above, our start-kit comes loaded with a bunch of minor
+awesomeness like prettier integration, commit-linting husky hooks, package import
+sorting, docker-compose for database dependencies, etc.
 
-## Consulting
+## Pre-requesites
 
-Most of the features added to this starter kit have already been tried out in production applications by us here at MonstarLab. Our production applications are more feature rich, and we constantly strive to bring those features to this OSS starter kit.
+Before starting, make sure you have at least these on your workstation:
 
-If you would like to use a more feature rich starter kit, with more awesome features from Day 1, then please reach out to us and we can collaborate on it together as technology partners. :)
+- [NodeJS](https://nodejs.org 'NodeJS') matching the project's version
 
-## Installation
+- If you use [nvm](https://github.com/nvm-sh/nvm) just run `nvm use`.
 
-Note: when using docker, all the `npm` commands can also be performed using `./scripts/npm` (for example `./scripts/npm install`).
-This script allows you to run the same commands inside the same environment and versions than the service, without relying on what is installed on the host.
+  - If you are using `zsh` as a shell you can automate this process, and it will switch
+  automatically when you change to the project directory just add this block to your`.zshrc`
+
+  ```shrc
+  # place this after nvm initialization!
+  autoload -Uz add-zsh-hook
+
+  load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]]; then
+     nvm use
+  elif [[ $(nvm version) != $(nvm version default)  ]]; then
+     echo "Reverting to nvm default version"
+     nvm use default
+  fi
+  }
+
+  add-zsh-hook chpwd load-nvmrc
+  load-nvmrc
+  ```
+
+- [Docker and Docker-Compose](https://www.docker.com 'Docker')
+  - These are installed seperately if you are using a Linux distro;
+
+## Setting up
+
+Note: when using docker, all the `npm` commands can also be performed using
+`./scripts/npm` (for example `./scripts/npm install`). This script allows you
+to run the same commands inside the same environment and versions than the service,
+without relying on what is installed on the host.
+
+### Install dependencies
+
+We use NPM and we disallow any attempt to use Yarn or PNPM; We recognize that Yarn
+and especially PNPM are faster than NPM; But GitHub Actions PNPM support is still
+somewhat limited, it is also harder to find professional grade examples using this
+managers, when it comes to private packaging, CI/CD, among others.
 
 ```bash
-$ npm install
+npm install
 ```
 
-Create a `.env` file from the template `.env.template` file.
+### Create the environment file (.env)
 
-Generate public and private key pair for jwt authentication:
+- Create a `.env` file from the template `.env.template` file.
 
-### With docker
+```bash
+cp .env.template .env
+```
+
+- Fill in any unfilled variables.
+  - See next section for `JWT_PUBLIC_KEY_BASE64` and `JWT_PRIVATE_KEY_BASE64`
+
+### Generate public and private key pair for jwt authentication
+
+These variables are key to the application proper operation. Without these
+environment variables, the application `runtime` will fail and `e2e` will certainly
+pick that up!
+
+#### Option one (using docker)
 
 Run this command:
+
 ```bash
 ./scripts/generate-jwt-keys
 ```
 
-It will output something like this. You only need to add it to your `.env` file.
-```
+Copy the output of that command and add it to your `.env` file. It looks something
+like this:
+
+```env
 To setup the JWT keys, please add the following values to your .env file:
 JWT_PUBLIC_KEY_BASE64="(long base64 content)"
 JWT_PRIVATE_KEY_BASE64="(long base64 content)"
 ```
 
-### Without docker
+#### Option two (using host machine functionality)
+
+The keys will be generated on `.local` folder, which is ignored by `.gitignore`.
 
 ```bash
-$ ssh-keygen -t rsa -b 2048 -m PEM -f jwtRS256.key
-# Don't add passphrase
-$ openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
-```
-
-You may save these key files in `./local` directory as it is ignored in git.
-
-Encode keys to base64:
-
-```bash
-$ base64 -i local/jwtRS256.key
-
-$ base64 -i local/jwtRS256.key.pub
+mkdir ./local
+ssh-keygen -t rsa -b 2048 -m PEM -f ./local/jwtRS256.key -N ""
+openssl rsa -in jwtRS256.key -pubout -outform PEM -out ./local/jwtRS256.key.pub
+base64 -i ./local/jwtRS256.key
+base64 -i ./local/jwtRS256.key.pub
 ```
 
 Must enter the base64 of the key files in `.env`:
 
 ```bash
-JWT_PUBLIC_KEY_BASE64=BASE64_OF_JWT_PUBLIC_KEY
-JWT_PRIVATE_KEY_BASE64=BASE64_OF_JWT_PRIVATE_KEY
+# Ensure that you insert both outputs in your environment without any newlines
+JWT_PUBLIC_KEY_BASE64="BASE64_OF_JWT_PUBLIC_KEY"
+JWT_PRIVATE_KEY_BASE64="BASE64_OF_JWT_PRIVATE_KEY"
 ```
 
-## Running the app
+### Running the app
 
 We can run the project with or without docker.
 
-### Local
+#### Directly on the host machine
 
 To run the server without Docker we need this pre-requisite:
 
-- Postgres server running
+- Postgres server running with applied migrations (we only apply and synch automatically
+in E2E tests)
 
 Commands:
 
 ```bash
+# Apply the migrations if needed
+npm run typeorm:migration:run
+
 # development
-$ npm run start
+npm run start
 
 # watch mode
-$ npm run start:dev
+npm run start:dev
 
 # production mode
-$ npm run start:prod
+npm run start:prod
 ```
 
-### Docker
+#### Using docker virtualization
 
 ```bash
 # build image
-$ docker build -t my-app .
+docker build -t justcollected .
 
 # run container from image
-$ docker run -p 3000:3000 --volume 'pwd':/usr/src/app --network --env-file .env my-app
+docker run -p 3000:3000 --volume 'pwd':/usr/src/app --network --env-file .env justcollected
 
 # run using docker compose
-$ docker compose up
+docker compose up
 ```
 
-Learn more about Docker conventions [here](https://github.com/monstar-lab-group/nodejs-backend/blob/master/architecture/docker-ready.md). (WIP - Currently this is an internal org link.)
-
-## Test
+### Testing the application
 
 ```bash
-# unit tests
-$ npm run test
+# unit tests (with or without JEST coverage)
+npm run test
+npm run test:cov
+
+# integration
+# not available yet
 
 # e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run test:e2e
 ```
 
-## Migrations
+### Migrations
 
 ```bash
-# using docker
-$ docker compose exec app npm run migration:run
+# Example using docker (all remaining commands can also be used in the same way)
+docker-compose exec app npm run typeorm:migration:run
 
-# generate migration (replace CreateUsers with name of the migration)
-$ npm run migration:generate --name=CreateUsers
+# Directly on host machine
+# Apply migrations on local machine
+npm run typeorm:migration:run
 
-# run migration
-$ npm run migration:run
+# Revert the previous migration applied on your local machine
+npm run typeorm:migration:revert
 
-# revert migration
-$ npm run migration:revert
+# Generate migration file from changes applied to the entities. Be aware that
+# the generated file may need some fine tuning. Always verify the generated
+# migration instructions as they can easily compromise dev, qa and production
+# databases when applied.
+npm run typeorm:migration:generate --name='name'
+
+# Create an empty migration file
+npm run typeorm:migration:create --name'name'
+
+# Write in the console the pending changes
+npm run typeorm:migration:log
+
+# Write in the console the pending migrations to be applied
+npm run typeorm:migration:show
+
+# Drop database, deletes all tables
+npm run schema:drop
+
+# Sync entities with database, creates, and updates database tables
+# We do this automatically on application start-up.
+npm run schema:sync
 ```
 
 ## Architecture
 
 - [Project Structure](./docs/project-structure.md)
 
-## Contributors
-
-- [Yash Murty](https://github.com/yashmurty)
-- [S M Asad Rahman](https://github.com/asad-mlbd)
-- [Tanveer Hassan](https://github.com/war1oc)
-- [Saad Bin Amjad](https://github.com/Saad-Amjad)
-- [Sivan Payyadakath](https://github.com/sivanpayyadakath)
-- [Sébastien Caparros](https://github.com/Seb-C)
-
 ## External Links
 
-<a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo.svg" width="150" alt="Nest Logo" /></a>
+- [NestJS](http://nestjs.com/)
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=monstar-lab-oss_nestjs-starter-rest-api)
+## Troubleshooting
+
+```bash
+# You must provide the correct relative or absolute path to -f option
+# When prompted for a password, type in the value of DATABASE_PASSWORD of `.env`
+export NODE_ENV=dev;
+npm run typeorm schema:drop;
+psql --dbname=$DB_NAME --username=$DB_USER --host=$DB_HOST --port=$DB_PORT -f ~/Downloads/example-dump.sql;
+```

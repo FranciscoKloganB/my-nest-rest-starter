@@ -1,6 +1,8 @@
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import request from 'supertest';
+
+import { VALIDATION_PIPE_OPTIONS } from '@shared/constants';
 
 import { ROLE } from '../../src/auth/constants/role.constant';
 import { LoginInput } from '../../src/auth/dtos/auth-login-input.dto';
@@ -28,7 +30,7 @@ describe('AuthController (e2e)', () => {
     }).compile();
 
     app = moduleRef.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe(VALIDATION_PIPE_OPTIONS));
     await app.init();
 
     ({ authTokenForAdmin } = await seedAdminUser(app));
@@ -85,9 +87,7 @@ describe('AuthController (e2e)', () => {
         .send(registerInput)
         .expect((res) => {
           const resp = res.body;
-          expect(resp.error.details.message).toContain(
-            'username must be a string',
-          );
+          expect(resp.error.details.message).toContain('username must be a string');
         });
     });
   });

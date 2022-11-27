@@ -6,7 +6,7 @@ import { REQUEST_ID_TOKEN_HEADER } from '../../constants';
 export const RequestIdMiddleware = (
   req: Request,
   res: Response,
-  next: () => void,
+  next: () => void
 ): void => {
   /** set request id, if not being set yet */
   if (

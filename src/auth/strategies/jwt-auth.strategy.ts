@@ -7,10 +7,7 @@ import { STRATEGY_JWT_AUTH } from '../constants/strategy.constant';
 import { UserAccessTokenClaims } from '../dtos/auth-token-output.dto';
 
 @Injectable()
-export class JwtAuthStrategy extends PassportStrategy(
-  Strategy,
-  STRATEGY_JWT_AUTH,
-) {
+export class JwtAuthStrategy extends PassportStrategy(Strategy, STRATEGY_JWT_AUTH) {
   constructor(private readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

@@ -10,10 +10,7 @@ import { UserService } from '../../user/services/user.service';
 import { ROLE } from '../constants/role.constant';
 import { RegisterInput } from '../dtos/auth-register-input.dto';
 import { RegisterOutput } from '../dtos/auth-register-output.dto';
-import {
-  AuthTokenOutput,
-  UserAccessTokenClaims,
-} from '../dtos/auth-token-output.dto';
+import { AuthTokenOutput, UserAccessTokenClaims } from '../dtos/auth-token-output.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +18,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService,
-    private readonly logger: AppLogger,
+    private readonly logger: AppLogger
   ) {
     this.logger.setContext(AuthService.name);
   }
@@ -29,16 +26,12 @@ export class AuthService {
   async validateUser(
     ctx: RequestContext,
     username: string,
-    pass: string,
+    pass: string
   ): Promise<UserAccessTokenClaims> {
     this.logger.log(ctx, `${this.validateUser.name} was called`);
 
     // The userService will throw Unauthorized in case of invalid username/password.
-    const user = await this.userService.validateUsernamePassword(
-      ctx,
-      username,
-      pass,
-    );
+    const user = await this.userService.validateUsernamePassword(ctx, username, pass);
 
     // Prevent disabled users from logging in.
     if (user.isAccountDisabled) {
@@ -54,17 +47,18 @@ export class AuthService {
     return this.getAuthToken(ctx, ctx.user);
   }
 
-  async register(
-    ctx: RequestContext,
-    input: RegisterInput,
-  ): Promise<RegisterOutput> {
+  async register(ctx: RequestContext, input: RegisterInput): Promise<RegisterOutput> {
     this.logger.log(ctx, `${this.register.name} was called`);
 
-    // TODO : Setting default role as USER here. Will add option to change this later via ADMIN users.
+    /**
+     * TODO: Setting default role as USER here
+     *  Should add option to change this later via ADMIN users.
+     */
     input.roles = [ROLE.USER];
     input.isAccountDisabled = false;
 
     const registeredUser = await this.userService.createUser(ctx, input);
+
     return plainToClass(RegisterOutput, registeredUser, {
       excludeExtraneousValues: true,
     });
@@ -83,7 +77,7 @@ export class AuthService {
 
   getAuthToken(
     ctx: RequestContext,
-    user: UserAccessTokenClaims | UserOutput,
+    user: UserAccessTokenClaims | UserOutput
   ): AuthTokenOutput {
     this.logger.log(ctx, `${this.getAuthToken.name} was called`);
 
@@ -100,9 +94,10 @@ export class AuthService {
       }),
       accessToken: this.jwtService.sign(
         { ...payload, ...subject },
-        { expiresIn: this.configService.get('jwt.accessTokenExpiresInSec') },
+        { expiresIn: this.configService.get('jwt.accessTokenExpiresInSec') }
       ),
     };
+
     return plainToClass(AuthTokenOutput, authToken, {
       excludeExtraneousValues: true,
     });

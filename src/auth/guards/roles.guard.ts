@@ -29,7 +29,7 @@ export class RolesGuard implements CanActivate {
     }
 
     throw new UnauthorizedException(
-      `User with roles ${user.roles} does not have access to this route with roles ${requiredRoles}`,
+      `User with roles ${user.roles} does not have access to this route with roles ${requiredRoles}`
     );
   }
 }

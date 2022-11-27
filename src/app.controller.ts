@@ -9,7 +9,7 @@ import { RequestContext } from './shared/request-context/request-context.dto';
 export class AppController {
   constructor(
     private readonly logger: AppLogger,
-    private readonly appService: AppService,
+    private readonly appService: AppService
   ) {
     this.logger.setContext(AppController.name);
   }

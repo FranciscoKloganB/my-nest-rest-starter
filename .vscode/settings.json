@@ -1,23 +1,28 @@
 {
+  "editor.autoClosingQuotes": "always",
   "editor.codeActionsOnSave": {
     "source.fixAll.tslint": true
   },
   "editor.insertSpaces": true,
-  "editor.tabSize": 2,
+  "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": true // forces VS Code to trigger completions when editing "string"
+  },
+  "editor.rulers": [88],
+  "editor.tabSize": 2,
   "files.eol": "\n",
   "files.insertFinalNewline": true,
+  "prettier.enable": true,
+  "prettier.configPath": ".prettierrc",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": ".github/workflows/*"
   },
-  "[javascriptreact]": {
+  "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
 }

@@ -13,7 +13,7 @@ class MockAclService extends BaseAclService<MockResource> {
   public canDo(
     role: ROLE,
     actions: Action[],
-    ruleCallback?: RuleCallback<MockResource>,
+    ruleCallback?: RuleCallback<MockResource>
   ) {
     super.canDo(role, actions, ruleCallback);
   }

@@ -7,10 +7,7 @@ import { RequestContext } from '../../shared/request-context/request-context.dto
 import { UserOutput } from '../../user/dtos/user-output.dto';
 import { User } from '../../user/entities/user.entity';
 import { UserService } from '../../user/services/user.service';
-import {
-  CreateArticleInput,
-  UpdateArticleInput,
-} from '../dtos/article-input.dto';
+import { CreateArticleInput, UpdateArticleInput } from '../dtos/article-input.dto';
 import { ArticleOutput } from '../dtos/article-output.dto';
 import { Article } from '../entities/article.entity';
 import { ArticleRepository } from '../repositories/article.repository';

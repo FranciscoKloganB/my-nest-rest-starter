@@ -21,7 +21,7 @@ describe('AllExceptionsFilter', () => {
   let mockResponse: any;
 
   const mockConfigService = {
-    get: (key) => 'development',
+    get: (_key) => 'development',
   };
   const mockedLogger = {
     warn: jest.fn().mockReturnThis(),
@@ -88,9 +88,7 @@ describe('AllExceptionsFilter', () => {
 
   it('should handle unhandled error with status code 500', async () => {
     filter.catch(mockError, mockContext);
-    expect(mockResponse.status).toBeCalledWith(
-      HttpStatus.INTERNAL_SERVER_ERROR,
-    );
+    expect(mockResponse.status).toBeCalledWith(HttpStatus.INTERNAL_SERVER_ERROR);
   });
 
   it('should handle exception with plain string message', async () => {
@@ -101,7 +99,7 @@ describe('AllExceptionsFilter', () => {
           statusCode: HttpStatus.NOT_FOUND,
           message: mockMessage1,
         }),
-      }),
+      })
     );
   });
 
@@ -113,7 +111,7 @@ describe('AllExceptionsFilter', () => {
           statusCode: HttpStatus.BAD_REQUEST,
           details: mockMessage2,
         }),
-      }),
+      })
     );
   });
 
@@ -129,7 +127,7 @@ describe('AllExceptionsFilter', () => {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           message: mockMessage3,
         }),
-      }),
+      })
     );
 
     // configSpy.mockClear();
@@ -147,7 +145,7 @@ describe('AllExceptionsFilter', () => {
           statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
           message: 'Internal server error',
         }),
-      }),
+      })
     );
 
     configSpy.mockClear();
@@ -160,7 +158,7 @@ describe('AllExceptionsFilter', () => {
         error: expect.objectContaining({
           requestId: mockRequest.headers[REQUEST_ID_TOKEN_HEADER],
         }),
-      }),
+      })
     );
   });
 
@@ -171,7 +169,7 @@ describe('AllExceptionsFilter', () => {
         error: expect.objectContaining({
           path: mockRequest.url,
         }),
-      }),
+      })
     );
   });
 
@@ -180,7 +178,7 @@ describe('AllExceptionsFilter', () => {
 
     const dateSpy = jest
       .spyOn(global, 'Date')
-      .mockImplementation(() => (mockDate as unknown) as string);
+      .mockImplementation(() => mockDate as unknown as string);
 
     filter.catch(mockException1, mockContext);
     expect(mockResponse.status).toBeCalledWith(HttpStatus.NOT_FOUND);
@@ -189,7 +187,7 @@ describe('AllExceptionsFilter', () => {
         error: expect.objectContaining({
           timestamp: mockDate.toISOString(),
         }),
-      }),
+      })
     );
     dateSpy.mockClear();
   });

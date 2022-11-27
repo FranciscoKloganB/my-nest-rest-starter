@@ -1,8 +1,8 @@
-## Project Structure
+# Project Structure
 
-### Basic Monolithic Application Structure
+## Basic Monolithic Application Structure
 
-```
+```vscode
 │ .env # Environment credentials
 │ src/
 │├── app.module.ts

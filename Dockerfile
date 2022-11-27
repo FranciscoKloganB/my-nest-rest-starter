@@ -1,11 +1,12 @@
-# lts-gallium refers to v16
-# Using this instead of node:16 to avoid dependabot updates
-FROM node:lts-gallium as builder
+# lts-hydrogen refers to v18
+# Using this instead of node:18 to avoid dependabot updates
+FROM node:lts-hydrogen as builder
+RUN npm install -g npm@9.1.2
 
 WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --ignore-scripts
 
 COPY . .
 
@@ -16,7 +17,7 @@ RUN npm run build
 
 RUN npm prune
 
-FROM node:lts-gallium
+FROM node:lts-hydrogen
 
 ARG APP_ENV=development
 ENV NODE_ENV=${APP_ENV}

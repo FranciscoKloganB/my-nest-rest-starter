@@ -5,10 +5,7 @@ import { Actor } from './actor.constant';
 /**
  * Custom rule callback definition
  */
-export type RuleCallback<Resource> = (
-  resource: Resource,
-  actor: Actor,
-) => boolean;
+export type RuleCallback<Resource> = (resource: Resource, actor: Actor) => boolean;
 
 /**
  * ACL rule format

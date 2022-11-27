@@ -10,6 +10,26 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
+    "paths": {
+      "@article/*": ["src/article/*"],
+      "@auth/*": ["src/auth/*"],
+      "@shared/*": ["src/shared/*"],
+      "@user/*": ["src/user/*"],
+      /**
+       * Keep @src alias last so that IDEs/Editors provide better auto-completes.
+       *
+       * If @src comes first in this array IDE will match it as the de-facto alias for
+       * auto-importing since all modules in `src` folder are a match for src/*.
+       */
+      "@src/*": ["src/*"]
+    }
   }
 }

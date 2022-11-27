@@ -11,10 +11,7 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, STRATEGY_LOCAL) {
-  constructor(
-    private authService: AuthService,
-    private readonly logger: AppLogger,
-  ) {
+  constructor(private authService: AuthService, private readonly logger: AppLogger) {
     // Add option passReqToCallback: true to configure strategy to be request-scoped.
     super({
       usernameField: 'username',
@@ -27,7 +24,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, STRATEGY_LOCAL) {
   async validate(
     request: Request,
     username: string,
-    password: string,
+    password: string
   ): Promise<UserAccessTokenClaims> {
     const ctx = createRequestContext(request);
 

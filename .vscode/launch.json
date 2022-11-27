@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug NestJS Program",
+      "args": ["${workspaceFolder}/src/main.ts"],
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register",
+        "-r",
+        "tsconfig-paths/register"
+      ],
+      "sourceMaps": true,
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal"
+    },
+    {
+      "command": "npm run test:cov",
+      "name": "Debug NestJS JEST Unit (Coverage)",
+      "request": "launch",
+      "type": "node-terminal",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    {
+      "command": "npm run test:e2e",
+      "name": "Debug NestJS JEST E2E",
+      "request": "launch",
+      "type": "node-terminal",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  ]
+}

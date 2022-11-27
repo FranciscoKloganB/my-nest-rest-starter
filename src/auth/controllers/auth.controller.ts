@@ -8,7 +8,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiOperation,ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   BaseApiErrorResponse,
@@ -32,7 +32,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly logger: AppLogger,
+    private readonly logger: AppLogger
   ) {
     this.logger.setContext(AuthController.name);
   }
@@ -53,12 +53,12 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor)
   login(
     @ReqContext() ctx: RequestContext,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @Body() credential: LoginInput,
+    @Body() _credential: LoginInput
   ): BaseApiResponse<AuthTokenOutput> {
     this.logger.log(ctx, `${this.login.name} was called`);
 
     const authToken = this.authService.login(ctx);
+
     return { data: authToken, meta: {} };
   }
 
@@ -72,7 +72,7 @@ export class AuthController {
   })
   async registerLocal(
     @ReqContext() ctx: RequestContext,
-    @Body() input: RegisterInput,
+    @Body() input: RegisterInput
   ): Promise<BaseApiResponse<RegisterOutput>> {
     const registeredUser = await this.authService.register(ctx, input);
     return { data: registeredUser, meta: {} };
@@ -95,12 +95,12 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor)
   async refreshToken(
     @ReqContext() ctx: RequestContext,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @Body() credential: RefreshTokenInput,
+    @Body() _credential: RefreshTokenInput
   ): Promise<BaseApiResponse<AuthTokenOutput>> {
     this.logger.log(ctx, `${this.refreshToken.name} was called`);
 
     const authToken = await this.authService.refreshToken(ctx);
+
     return { data: authToken, meta: {} };
   }
 }

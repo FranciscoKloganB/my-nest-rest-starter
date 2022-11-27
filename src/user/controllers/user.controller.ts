@@ -1,6 +1,14 @@
 import {
-    Body, ClassSerializerInterceptor, Controller, Get, HttpStatus, Param, Patch, Query, UseGuards,
-    UseInterceptors
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Query,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -9,7 +17,9 @@ import { Roles } from '../../auth/decorators/role.decorator';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import {
-    BaseApiErrorResponse, BaseApiResponse, SwaggerBaseApiResponse
+  BaseApiErrorResponse,
+  BaseApiResponse,
+  SwaggerBaseApiResponse,
 } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
 import { AppLogger } from '../../shared/logger/logger.service';
@@ -24,7 +34,7 @@ import { UserService } from '../services/user.service';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly logger: AppLogger,
+    private readonly logger: AppLogger
   ) {
     this.logger.setContext(UserController.name);
   }
@@ -44,7 +54,7 @@ export class UserController {
     type: BaseApiErrorResponse,
   })
   async getMyProfile(
-    @ReqContext() ctx: RequestContext,
+    @ReqContext() ctx: RequestContext
   ): Promise<BaseApiResponse<UserOutput>> {
     this.logger.log(ctx, `${this.getMyProfile.name} was called`);
 
@@ -69,14 +79,14 @@ export class UserController {
   @Roles(ROLE.ADMIN, ROLE.USER)
   async getUsers(
     @ReqContext() ctx: RequestContext,
-    @Query() query: PaginationParamsDto,
+    @Query() query: PaginationParamsDto
   ): Promise<BaseApiResponse<UserOutput[]>> {
     this.logger.log(ctx, `${this.getUsers.name} was called`);
 
     const { users, count } = await this.userService.getUsers(
       ctx,
       query.limit,
-      query.offset,
+      query.offset
     );
 
     return { data: users, meta: { count } };
@@ -99,7 +109,7 @@ export class UserController {
   })
   async getUser(
     @ReqContext() ctx: RequestContext,
-    @Param('id') id: number,
+    @Param('id') id: number
   ): Promise<BaseApiResponse<UserOutput>> {
     this.logger.log(ctx, `${this.getUser.name} was called`);
 
@@ -125,7 +135,7 @@ export class UserController {
   async updateUser(
     @ReqContext() ctx: RequestContext,
     @Param('id') userId: number,
-    @Body() input: UpdateUserInput,
+    @Body() input: UpdateUserInput
   ): Promise<BaseApiResponse<UserOutput>> {
     this.logger.log(ctx, `${this.updateUser.name} was called`);
 

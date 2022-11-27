@@ -1,5 +1,5 @@
-import * as Joi from '@hapi/joi';
 import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
+import * as Joi from 'joi';
 
 import configuration from './configuration';
 
@@ -16,10 +16,11 @@ export const configModuleOptions: ConfigModuleOptions = {
     DB_NAME: Joi.string().required(),
     DB_USER: Joi.string().required(),
     DB_PASS: Joi.string().required(),
+    DEFAULT_ADMIN_USER_PASSWORD: Joi.string().required(),
     JWT_PUBLIC_KEY_BASE64: Joi.string().required(),
     JWT_PRIVATE_KEY_BASE64: Joi.string().required(),
     JWT_ACCESS_TOKEN_EXP_IN_SEC: Joi.number().required(),
     JWT_REFRESH_TOKEN_EXP_IN_SEC: Joi.number().required(),
-    DEFAULT_ADMIN_USER_PASSWORD: Joi.string().required(),
+    LOG_SILENT: Joi.boolean().optional().default('false'),
   }),
 };

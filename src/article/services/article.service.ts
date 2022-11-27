@@ -7,10 +7,7 @@ import { AppLogger } from '../../shared/logger/logger.service';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
 import { User } from '../../user/entities/user.entity';
 import { UserService } from '../../user/services/user.service';
-import {
-  CreateArticleInput,
-  UpdateArticleInput,
-} from '../dtos/article-input.dto';
+import { CreateArticleInput, UpdateArticleInput } from '../dtos/article-input.dto';
 import { ArticleOutput } from '../dtos/article-output.dto';
 import { Article } from '../entities/article.entity';
 import { ArticleRepository } from '../repositories/article.repository';
@@ -22,14 +19,14 @@ export class ArticleService {
     private repository: ArticleRepository,
     private userService: UserService,
     private aclService: ArticleAclService,
-    private readonly logger: AppLogger,
+    private readonly logger: AppLogger
   ) {
     this.logger.setContext(ArticleService.name);
   }
 
   async createArticle(
     ctx: RequestContext,
-    input: CreateArticleInput,
+    input: CreateArticleInput
   ): Promise<ArticleOutput> {
     this.logger.log(ctx, `${this.createArticle.name} was called`);
 
@@ -59,7 +56,7 @@ export class ArticleService {
   async getArticles(
     ctx: RequestContext,
     limit: number,
-    offset: number,
+    offset: number
   ): Promise<{ articles: ArticleOutput[]; count: number }> {
     this.logger.log(ctx, `${this.getArticles.name} was called`);
 
@@ -84,10 +81,7 @@ export class ArticleService {
     return { articles: articlesOutput, count };
   }
 
-  async getArticleById(
-    ctx: RequestContext,
-    id: number,
-  ): Promise<ArticleOutput> {
+  async getArticleById(ctx: RequestContext, id: number): Promise<ArticleOutput> {
     this.logger.log(ctx, `${this.getArticleById.name} was called`);
 
     const actor: Actor = ctx.user;
@@ -95,9 +89,7 @@ export class ArticleService {
     this.logger.log(ctx, `calling ${ArticleRepository.name}.getById`);
     const article = await this.repository.getById(id);
 
-    const isAllowed = this.aclService
-      .forActor(actor)
-      .canDoAction(Action.Read, article);
+    const isAllowed = this.aclService.forActor(actor).canDoAction(Action.Read, article);
     if (!isAllowed) {
       throw new UnauthorizedException();
     }
@@ -110,7 +102,7 @@ export class ArticleService {
   async updateArticle(
     ctx: RequestContext,
     articleId: number,
-    input: UpdateArticleInput,
+    input: UpdateArticleInput
   ): Promise<ArticleOutput> {
     this.logger.log(ctx, `${this.updateArticle.name} was called`);
 

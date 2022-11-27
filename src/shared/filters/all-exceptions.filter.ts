@@ -16,10 +16,7 @@ import { createRequestContext } from '../request-context/util';
 @Catch()
 export class AllExceptionsFilter<T> implements ExceptionFilter {
   /** set logger context */
-  constructor(
-    private config: ConfigService,
-    private readonly logger: AppLogger,
-  ) {
+  constructor(private config: ConfigService, private readonly logger: AppLogger) {
     this.logger.setContext(AllExceptionsFilter.name);
   }
 
@@ -83,8 +80,8 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
     });
 
     // Suppress original internal server error details in prod mode
-    const isProMood = this.config.get<string>('env') !== 'development';
-    if (isProMood && statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
+    const isProdMode = this.config.get<string>('env') !== 'development';
+    if (isProdMode && statusCode === HttpStatus.INTERNAL_SERVER_ERROR) {
       error.message = 'Internal server error';
     }
 

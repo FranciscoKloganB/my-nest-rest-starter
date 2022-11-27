@@ -11,26 +11,27 @@ jobs:
       APP_ENV: test
       APP_PORT: 3000
       DB_HOST: localhost
-      DB_PORT: 5432
-      DB_NAME: example_db
-      DB_USER: root
-      DB_PASS: example
+      DB_PORT: 5433
+      DB_NAME: justcollected-db-e2e
+      DB_USER: e2eusr
+      DB_PASS: e2epwd
       JWT_ACCESS_TOKEN_EXP_IN_SEC: 3600
       JWT_REFRESH_TOKEN_EXP_IN_SEC: 7200
       JWT_PUBLIC_KEY_BASE64: ${{ secrets.JWT_PUBLIC_KEY_BASE64 }}
       JWT_PRIVATE_KEY_BASE64: ${{ secrets.JWT_PRIVATE_KEY_BASE64 }}
       DEFAULT_ADMIN_USER_PASSWORD: example_admin_pass
+      SILENT_LOGS: false
 
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - run: npm ci
+          node-version: 18
+      - run: npm ci --ignore-scripts
       - name: Run unit tests
         run: npm test
       - name: Build the docker-compose stack
-        run: docker-compose -f docker-compose.yml up -d pgsqldb
+        run: docker-compose -f docker-compose.yml up -d pgsqldb-e2e
       - name: Check running containers
         run: docker ps -a
       - name: Run e2e tests

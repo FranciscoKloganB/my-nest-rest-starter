@@ -1,9 +1,17 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
+
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@article/(.*)": "<rootDir>/../src/article/$1",
+    "@auth/(.*)": "<rootDir>/../src/auth/$1",
+    "@shared/(.*)": "<rootDir>/../src/shared/$1",
+    "@user/(.*)": "<rootDir>/../src/user/$1",
+    "@src/(.*)": "<rootDir>/../src/$1"
   }
 }

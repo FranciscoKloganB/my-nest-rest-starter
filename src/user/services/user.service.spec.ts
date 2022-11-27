@@ -29,7 +29,11 @@ describe('UserService', () => {
 
   const mockedLogger = { setContext: jest.fn(), log: jest.fn() };
 
-  beforeEach(async () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
@@ -52,9 +56,7 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     beforeEach(() => {
-      jest
-        .spyOn(bcrypt, 'hash')
-        .mockImplementation(async () => 'hashed-password');
+      jest.spyOn(bcrypt, 'hash').mockImplementation(async () => 'hashed-password');
 
       jest
         .spyOn(mockedRepository, 'save')
@@ -132,9 +134,7 @@ describe('UserService', () => {
 
   describe('findById', () => {
     beforeEach(() => {
-      jest
-        .spyOn(mockedRepository, 'findOne')
-        .mockImplementation(async () => user);
+      jest.spyOn(mockedRepository, 'findOne').mockImplementation(async () => user);
     });
 
     it('should find user from DB using given id', async () => {
@@ -162,9 +162,7 @@ describe('UserService', () => {
 
   describe('getUserById', () => {
     beforeEach(() => {
-      jest
-        .spyOn(mockedRepository, 'getById')
-        .mockImplementation(async () => user);
+      jest.spyOn(mockedRepository, 'getById').mockImplementation(async () => user);
     });
 
     it('should find user from DB using given id', async () => {
@@ -199,39 +197,29 @@ describe('UserService', () => {
 
   describe('validateUsernamePassword', () => {
     it('should fail when username is invalid', async () => {
-      jest
-        .spyOn(mockedRepository, 'findOne')
-        .mockImplementation(async () => null);
+      jest.spyOn(mockedRepository, 'findOne').mockImplementation(async () => null);
 
       await expect(
-        service.validateUsernamePassword(ctx, 'jhon', 'password'),
+        service.validateUsernamePassword(ctx, 'jhon', 'password')
       ).rejects.toThrowError();
     });
 
     it('should fail when password is invalid', async () => {
-      jest
-        .spyOn(mockedRepository, 'findOne')
-        .mockImplementation(async () => user);
+      jest.spyOn(mockedRepository, 'findOne').mockImplementation(async () => user);
 
       jest.spyOn(bcrypt, 'compare').mockImplementation(async () => false);
 
       await expect(
-        service.validateUsernamePassword(ctx, 'jhon', 'password'),
+        service.validateUsernamePassword(ctx, 'jhon', 'password')
       ).rejects.toThrowError();
     });
 
     it('should return  user  when credentials are valid', async () => {
-      jest
-        .spyOn(mockedRepository, 'findOne')
-        .mockImplementation(async () => user);
+      jest.spyOn(mockedRepository, 'findOne').mockImplementation(async () => user);
 
       jest.spyOn(bcrypt, 'compare').mockImplementation(async () => true);
 
-      const result = await service.validateUsernamePassword(
-        ctx,
-        'jhon',
-        'password',
-      );
+      const result = await service.validateUsernamePassword(ctx, 'jhon', 'password');
 
       expect(result).toEqual({
         id: user.id,
@@ -254,9 +242,7 @@ describe('UserService', () => {
 
   describe('findByUsername', () => {
     beforeEach(() => {
-      jest
-        .spyOn(mockedRepository, 'findOne')
-        .mockImplementation(async () => user);
+      jest.spyOn(mockedRepository, 'findOne').mockImplementation(async () => user);
     });
 
     it('should find user from DB using given username', async () => {
@@ -322,9 +308,7 @@ describe('UserService', () => {
         articles: [],
       };
 
-      jest
-        .spyOn(bcrypt, 'hash')
-        .mockImplementation(async () => 'updated-password');
+      jest.spyOn(bcrypt, 'hash').mockImplementation(async () => 'updated-password');
 
       await service.updateUser(ctx, userId, input);
       expect(mockedRepository.save).toHaveBeenCalledWith(expected);

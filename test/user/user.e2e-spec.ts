@@ -1,6 +1,8 @@
 import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import request from 'supertest';
+
+import { VALIDATION_PIPE_OPTIONS } from '@shared/constants';
 
 import { AppModule } from '../../src/app.module';
 import { AuthTokenOutput } from '../../src/auth/dtos/auth-token-output.dto';
@@ -26,7 +28,7 @@ describe('UserController (e2e)', () => {
     }).compile();
 
     app = moduleRef.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe(VALIDATION_PIPE_OPTIONS));
     await app.init();
 
     ({ adminUser, authTokenForAdmin } = await seedAdminUser(app));
@@ -77,9 +79,7 @@ describe('UserController (e2e)', () => {
     });
 
     it('throws NOT_FOUND when user doesnt exist', () => {
-      return request(app.getHttpServer())
-        .get('/users/99')
-        .expect(HttpStatus.NOT_FOUND);
+      return request(app.getHttpServer()).get('/users/99').expect(HttpStatus.NOT_FOUND);
     });
   });
 
@@ -121,9 +121,7 @@ describe('UserController (e2e)', () => {
         .expect((res) => {
           const resp = res.body;
 
-          expect(resp.error.details.message).toContain(
-            'password must be a string',
-          );
+          expect(resp.error.details.message).toContain('password must be a string');
         });
     });
   });

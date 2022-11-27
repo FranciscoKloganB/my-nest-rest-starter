@@ -15,7 +15,7 @@ export class BaseAclService<Resource> {
   protected canDo(
     role: ROLE,
     actions: Action[],
-    ruleCallback?: RuleCallback<Resource>,
+    ruleCallback?: RuleCallback<Resource>
   ): void {
     ruleCallback
       ? this.aclRules.push({ role, actions, ruleCallback })
@@ -32,17 +32,19 @@ export class BaseAclService<Resource> {
 
         actor.roles.forEach((actorRole) => {
           //If already has access, return
-          if (canDoAction) return true;
+          if (canDoAction) {
+            return true;
+          }
 
           //find all rules for given user role
-          const aclRules = this.aclRules.filter(
-            (rule) => rule.role === actorRole,
-          );
+          const aclRules = this.aclRules.filter((rule) => rule.role === actorRole);
 
           //for each rule, check action permission
           aclRules.forEach((aclRule) => {
             //If already has access, return
-            if (canDoAction) return true;
+            if (canDoAction) {
+              return true;
+            }
 
             //check action permission
             const hasActionPermission =

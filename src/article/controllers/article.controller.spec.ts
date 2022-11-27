@@ -4,10 +4,7 @@ import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
 import { AppLogger } from '../../shared/logger/logger.service';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
 import { User } from '../../user/entities/user.entity';
-import {
-  CreateArticleInput,
-  UpdateArticleInput,
-} from '../dtos/article-input.dto';
+import { CreateArticleInput, UpdateArticleInput } from '../dtos/article-input.dto';
 import { ArticleOutput } from '../dtos/article-output.dto';
 import { ArticleService } from '../services/article.service';
 import { ArticleController } from './article.controller';
@@ -53,10 +50,7 @@ describe('ArticleController', () => {
 
     it('should call articleService.createArticle with correct input', () => {
       controller.createArticle(ctx, input);
-      expect(mockedArticleService.createArticle).toHaveBeenCalledWith(
-        ctx,
-        input,
-      );
+      expect(mockedArticleService.createArticle).toHaveBeenCalledWith(ctx, input);
     });
 
     it('should return data which includes info from articleService.createArticle', async () => {
@@ -106,7 +100,7 @@ describe('ArticleController', () => {
       expect(mockedArticleService.getArticles).toHaveBeenCalledWith(
         ctx,
         queryParams.limit,
-        queryParams.offset,
+        queryParams.offset
       );
     });
   });
@@ -131,7 +125,7 @@ describe('ArticleController', () => {
       expect(mockedArticleService.updateArticle).toHaveBeenCalledWith(
         ctx,
         articleId,
-        input,
+        input
       );
     });
   });
@@ -140,10 +134,7 @@ describe('ArticleController', () => {
     it('should call articleService.deleteArticle with correct id', () => {
       const articleId = 1;
       controller.deleteArticle(ctx, articleId);
-      expect(mockedArticleService.deleteArticle).toHaveBeenCalledWith(
-        ctx,
-        articleId,
-      );
+      expect(mockedArticleService.deleteArticle).toHaveBeenCalledWith(ctx, articleId);
     });
   });
 });

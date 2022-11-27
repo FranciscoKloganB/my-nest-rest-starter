@@ -12,12 +12,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import {
@@ -29,10 +24,7 @@ import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
 import { AppLogger } from '../../shared/logger/logger.service';
 import { ReqContext } from '../../shared/request-context/req-context.decorator';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
-import {
-  CreateArticleInput,
-  UpdateArticleInput,
-} from '../dtos/article-input.dto';
+import { CreateArticleInput, UpdateArticleInput } from '../dtos/article-input.dto';
 import { ArticleOutput } from '../dtos/article-output.dto';
 import { ArticleService } from '../services/article.service';
 
@@ -41,7 +33,7 @@ import { ArticleService } from '../services/article.service';
 export class ArticleController {
   constructor(
     private readonly articleService: ArticleService,
-    private readonly logger: AppLogger,
+    private readonly logger: AppLogger
   ) {
     this.logger.setContext(ArticleController.name);
   }
@@ -59,7 +51,7 @@ export class ArticleController {
   @UseGuards(JwtAuthGuard)
   async createArticle(
     @ReqContext() ctx: RequestContext,
-    @Body() input: CreateArticleInput,
+    @Body() input: CreateArticleInput
   ): Promise<BaseApiResponse<ArticleOutput>> {
     const article = await this.articleService.createArticle(ctx, input);
     return { data: article, meta: {} };
@@ -78,14 +70,14 @@ export class ArticleController {
   @UseGuards(JwtAuthGuard)
   async getArticles(
     @ReqContext() ctx: RequestContext,
-    @Query() query: PaginationParamsDto,
+    @Query() query: PaginationParamsDto
   ): Promise<BaseApiResponse<ArticleOutput[]>> {
     this.logger.log(ctx, `${this.getArticles.name} was called`);
 
     const { articles, count } = await this.articleService.getArticles(
       ctx,
       query.limit,
-      query.offset,
+      query.offset
     );
 
     return { data: articles, meta: { count } };
@@ -107,7 +99,7 @@ export class ArticleController {
   @UseGuards(JwtAuthGuard)
   async getArticle(
     @ReqContext() ctx: RequestContext,
-    @Param('id') id: number,
+    @Param('id') id: number
   ): Promise<BaseApiResponse<ArticleOutput>> {
     this.logger.log(ctx, `${this.getArticle.name} was called`);
 
@@ -129,13 +121,9 @@ export class ArticleController {
   async updateArticle(
     @ReqContext() ctx: RequestContext,
     @Param('id') articleId: number,
-    @Body() input: UpdateArticleInput,
+    @Body() input: UpdateArticleInput
   ): Promise<BaseApiResponse<ArticleOutput>> {
-    const article = await this.articleService.updateArticle(
-      ctx,
-      articleId,
-      input,
-    );
+    const article = await this.articleService.updateArticle(ctx, articleId, input);
     return { data: article, meta: {} };
   }
 
@@ -150,7 +138,7 @@ export class ArticleController {
   @UseGuards(JwtAuthGuard)
   async deleteArticle(
     @ReqContext() ctx: RequestContext,
-    @Param('id') id: number,
+    @Param('id') id: number
   ): Promise<void> {
     this.logger.log(ctx, `${this.deleteArticle.name} was called`);
 

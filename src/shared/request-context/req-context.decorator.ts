@@ -8,5 +8,5 @@ export const ReqContext = createParamDecorator(
     const request = ctx.switchToHttp().getRequest();
 
     return createRequestContext(request);
-  },
+  }
 );

@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const defaultAdminUserPassword = configService.get<string>(
-    'defaultAdminUserPassword',
+    'defaultAdminUserPassword'
   );
 
   const userService = app.get(UserService);

@@ -8,10 +8,7 @@ import { RequestContext } from '../../shared/request-context/request-context.dto
 import { UserOutput } from '../../user/dtos/user-output.dto';
 import { UserService } from '../../user/services/user.service';
 import { ROLE } from '../constants/role.constant';
-import {
-  AuthTokenOutput,
-  UserAccessTokenClaims,
-} from '../dtos/auth-token-output.dto';
+import { AuthTokenOutput, UserAccessTokenClaims } from '../dtos/auth-token-output.dto';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -90,13 +87,11 @@ describe('AuthService', () => {
         .spyOn(mockedUserService, 'validateUsernamePassword')
         .mockImplementation(() => userOutput);
 
-      expect(await service.validateUser(ctx, 'jhon', 'somepass')).toEqual(
-        userOutput,
-      );
+      expect(await service.validateUser(ctx, 'jhon', 'somepass')).toEqual(userOutput);
       expect(mockedUserService.validateUsernamePassword).toBeCalledWith(
         ctx,
         'jhon',
-        'somepass',
+        'somepass'
       );
     });
 
@@ -107,9 +102,9 @@ describe('AuthService', () => {
           throw new UnauthorizedException();
         });
 
-      await expect(
-        service.validateUser(ctx, 'jhon', 'somepass'),
-      ).rejects.toThrowError(UnauthorizedException);
+      await expect(service.validateUser(ctx, 'jhon', 'somepass')).rejects.toThrowError(
+        UnauthorizedException
+      );
     });
 
     it('should fail when user account is disabled', async () => {
@@ -117,9 +112,9 @@ describe('AuthService', () => {
         .spyOn(mockedUserService, 'validateUsernamePassword')
         .mockImplementation(() => ({ ...userOutput, isAccountDisabled: true }));
 
-      await expect(
-        service.validateUser(ctx, 'jhon', 'somepass'),
-      ).rejects.toThrowError(UnauthorizedException);
+      await expect(service.validateUser(ctx, 'jhon', 'somepass')).rejects.toThrowError(
+        UnauthorizedException
+      );
     });
   });
 
@@ -136,9 +131,7 @@ describe('AuthService', () => {
 
   describe('register', () => {
     it('should register new user', async () => {
-      jest
-        .spyOn(mockedUserService, 'createUser')
-        .mockImplementation(() => userOutput);
+      jest.spyOn(mockedUserService, 'createUser').mockImplementation(() => userOutput);
 
       const result = await service.register(ctx, registerInput);
 
@@ -164,13 +157,9 @@ describe('AuthService', () => {
     });
 
     it('should throw exception when user is not valid', async () => {
-      jest
-        .spyOn(mockedUserService, 'findById')
-        .mockImplementation(async () => null);
+      jest.spyOn(mockedUserService, 'findById').mockImplementation(async () => null);
 
-      await expect(service.refreshToken(ctx)).rejects.toThrowError(
-        'Invalid user id',
-      );
+      await expect(service.refreshToken(ctx)).rejects.toThrowError('Invalid user id');
     });
 
     afterEach(() => {
@@ -204,9 +193,7 @@ describe('AuthService', () => {
         return value;
       });
 
-      jest
-        .spyOn(mockedJwtService, 'sign')
-        .mockImplementation(() => 'signed-response');
+      jest.spyOn(mockedJwtService, 'sign').mockImplementation(() => 'signed-response');
     });
 
     it('should generate access token with payload', () => {
@@ -214,7 +201,7 @@ describe('AuthService', () => {
 
       expect(mockedJwtService.sign).toBeCalledWith(
         { ...payload, ...subject },
-        { expiresIn: accessTokenExpiry },
+        { expiresIn: accessTokenExpiry }
       );
 
       expect(result).toMatchObject({
