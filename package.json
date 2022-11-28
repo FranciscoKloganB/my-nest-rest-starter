@@ -45,7 +45,7 @@
     "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate -d ormconfig.ts migrations/$npm_config_name",
     "migration:run": "ts-node node_modules/.bin/typeorm migration:run -d ormconfig.ts",
     "migration:revert": "ts-node node_modules/.bin/typeorm migration:revert -d ormconfig.ts",
-    "prepare": "husky install",
+    "postinstall": "husky install",
     "up": "taze major ",
     "up:install": "taze major --install"
   },
