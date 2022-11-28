@@ -45,7 +45,9 @@
     "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate -d ormconfig.ts migrations/$npm_config_name",
     "migration:run": "ts-node node_modules/.bin/typeorm migration:run -d ormconfig.ts",
     "migration:revert": "ts-node node_modules/.bin/typeorm migration:revert -d ormconfig.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "up": "taze major ",
+    "up:install": "taze major --install"
   },
   "dependencies": {
     "@casl/ability": "^6.3.2",
@@ -110,17 +112,18 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "supertest": "^6.2.4",
+    "taze": "^0.8.3",
     "ts-jest": "^29.0.1",
     "ts-loader": "^9.4.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.3"
   },
-  "engineStrict": true,
   "engines": {
     "node": ">=18.12.1",
     "npm": ">=9.1.2",
     "pnpm": "please-use-pnpm",
     "yarn": "please-use-npm"
-  }
+  },
+  "engineStrict": true
 }
