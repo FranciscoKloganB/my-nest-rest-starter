@@ -16,14 +16,21 @@ jobs:
     runs-on: ubuntu-20.04
     environment: test
     env:
-      APP_ADMINER: 8000
+      ADMINER_PORT: 8000
       APP_ENV: test
       APP_PORT: 3000
+      # Setting DB_* env variables just to avoid the CLI warning in GitHub Actions
+      # These are technically not necessary since we use TEST_DB_* for tests
       DB_HOST: localhost
       DB_PORT: 5433
       DB_NAME: justcollected-db-e2e
       DB_USER: e2eusr
       DB_PASS: e2epwd
+      TEST_DB_HOST: localhost
+      TEST_DB_PORT: 5433
+      TEST_DB_NAME: justcollected-db-e2e
+      TEST_DB_USER: e2eusr
+      TEST_DB_PASS: e2epwd
       JWT_ACCESS_TOKEN_EXP_IN_SEC: 3600
       JWT_REFRESH_TOKEN_EXP_IN_SEC: 7200
       JWT_PUBLIC_KEY_BASE64: ${{ secrets.JWT_PUBLIC_KEY_BASE64 }}
