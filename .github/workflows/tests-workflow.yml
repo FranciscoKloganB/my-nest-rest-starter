@@ -9,7 +9,7 @@ env:
 
 jobs:
   test_pull_request:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     environment: test
     env:
       APP_ADMINER: 8000
