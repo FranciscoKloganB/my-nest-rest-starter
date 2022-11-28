@@ -1,56 +1,57 @@
 # justcollected.com
 
-## Based on a NestJS Starter Kit [v2]
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Build Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/build/badge.svg)
 ![Tests Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/tests/badge.svg)
 
-This starter kit has the following outline:
+## Before you read further
 
-- Monolithic Project.
-- REST API
+Wether you are on MacOS or Linux, we recommend that you install the following tooling:
 
-The baseline for this project was taken from [MonstraLab OSS template](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/blob/master/README.md)
+- [oh-my-zsh](https://ohmyz.sh/) with your favorite plugins
 
-### Sample implementations
+  ```.zshrc
+  # We personally enjoy using at least these:
+  plugins=(
+    git
+    zsh-autosuggestions
+    zsh-completions
+    zsh-syntax-highlighting
+  )
+  ```
 
-To view sample implementations based on this starter kit, please visit the
-[nestjs-sample-solutions](https://github.com/monstar-lab-oss/nestjs-sample-solutions)
-repository.
+- [Homebrew](https://brew.sh/) and remember to follow the instructions at the end of the
+program output.
+  - Installing Homebrew and installing casks (programs) managed by Homebrew often
+  require exporting environment variables, adding scripts, or similar in your `.zshrc`,
+  `.bashrc` or other profile files.
+  - **Always check the program output for further instructions!**
 
-### Starter kit Features
+  ```sh
+  brew install openssl
+  brew install direnv
+  # Directory Environment requires additional setup in your rc file
+  brew install libpq
+  # Node Version Manager requires additional setup in your rc file
+  brew install nvm
+  # Installs the latest Node LTS that satisfies the `.nvmrc` file given by the project
+  nvm use
+  ```
 
-One of our main principals has been to keep the starter kit as lightweight as possible.
-With that in mind, here are some of the features that we have added in this starter kit.
+## Project Requesites
 
-| Feature                  | Info               | Progress |
-| ------------------------ | ------------------ | -------- |
-| Authentication           | JWT                | Done     |
-| Authorization            | RBAC (Role based)  | Done     |
-| ORM Integration          | TypeORM            | Done     |
-| DB Migrations            | TypeORM            | Done     |
-| Logging                  | winston            | Done     |
-| Request Validation       | class-validator    | Done     |
-| Pagination               | SQL offset & limit | Done     |
-| Docker Ready             | Dockerfile         | Done     |
-| Auto-generated OpenAPI   | -                  | Done     |
-| Auto-generated ChangeLog | -                  | WIP      |
+If you installed `nvm` and `libpq` you do not need anything other than `Docker` and
+`Docker-Compose`.
 
-Apart from these features above, our start-kit comes loaded with a bunch of minor
-awesomeness like prettier integration, commit-linting husky hooks, package import
-sorting, docker-compose for database dependencies, etc.
-
-## Pre-requesites
-
-Before starting, make sure you have at least these on your workstation:
+- [Docker and Docker-Compose](https://www.docker.com 'Docker')
+  - These are installed seperately if you are using a Linux distro;
 
 - [NodeJS](https://nodejs.org 'NodeJS') matching the project's version
 
-- If you use [nvm](https://github.com/nvm-sh/nvm) just run `nvm use`.
-
-  - If you are using `zsh` as a shell you can automate this process, and it will switch
-  automatically when you change to the project directory just add this block to your`.zshrc`
+  - If you use [nvm](https://github.com/nvm-sh/nvm) and `zsh` as a shell you can
+  automate process of installing and/or setting the proper `Node` for any project which
+  provides `.nvmrc`, when switching to it's directory or a child of it. Just add this
+  block to your`.zshrc`
 
   ```shrc
   # place this after nvm initialization!
@@ -69,24 +70,24 @@ Before starting, make sure you have at least these on your workstation:
   load-nvmrc
   ```
 
-- [Docker and Docker-Compose](https://www.docker.com 'Docker')
-  - These are installed seperately if you are using a Linux distro;
+- [Postgres](https://www.postgresql.org/) or compatible binaries
 
 ## Setting up
 
-Note: when using docker, all the `npm` commands can also be performed using
-`./scripts/npm` (for example `./scripts/npm install`). This script allows you
-to run the same commands inside the same environment and versions than the service,
-without relying on what is installed on the host.
+_When using docker, all of the project's '`npm` commands can also be performed using
+`./scripts/npm` (e.g.: `./scripts/npm install`). This script allows you to run the same
+commands inside the same environment and versions than the service, without relying on
+what is installed on the host and without decorating fancy docker/docker-compose exec
+commands._
 
 ### Install dependencies
 
 We use NPM and we disallow any attempt to use Yarn or PNPM; We recognize that Yarn
 and especially PNPM are faster than NPM; But GitHub Actions PNPM support is still
-somewhat limited, it is also harder to find professional grade examples using this
+somewhat limited, it is also harder to find professional grade examples using these
 managers, when it comes to private packaging, CI/CD, among others.
 
-```bash
+```sh
 npm install
 ```
 
@@ -94,7 +95,7 @@ npm install
 
 - Create a `.env` file from the template `.env.template` file.
 
-```bash
+```sh
 cp .env.template .env
 ```
 
@@ -111,7 +112,7 @@ pick that up!
 
 Run this command:
 
-```bash
+```sh
 ./scripts/generate-jwt-keys
 ```
 
@@ -128,7 +129,7 @@ JWT_PRIVATE_KEY_BASE64="(long base64 content)"
 
 The keys will be generated on `.local` folder, which is ignored by `.gitignore`.
 
-```bash
+```sh
 mkdir ./local
 ssh-keygen -t rsa -b 2048 -m PEM -f ./local/jwtRS256.key -N ""
 openssl rsa -in jwtRS256.key -pubout -outform PEM -out ./local/jwtRS256.key.pub
@@ -138,7 +139,7 @@ base64 -i ./local/jwtRS256.key.pub
 
 Must enter the base64 of the key files in `.env`:
 
-```bash
+```sh
 # Ensure that you insert both outputs in your environment without any newlines
 JWT_PUBLIC_KEY_BASE64="BASE64_OF_JWT_PUBLIC_KEY"
 JWT_PRIVATE_KEY_BASE64="BASE64_OF_JWT_PRIVATE_KEY"
@@ -157,7 +158,7 @@ in E2E tests)
 
 Commands:
 
-```bash
+```sh
 # Apply the migrations if needed
 npm run typeorm:migration:run
 
@@ -173,7 +174,7 @@ npm run start:prod
 
 #### Using docker virtualization
 
-```bash
+```sh
 # build image
 docker build -t justcollected .
 
@@ -186,7 +187,7 @@ docker compose up
 
 ### Testing the application
 
-```bash
+```sh
 # unit tests (with or without JEST coverage)
 npm run test
 npm run test:cov
@@ -200,7 +201,7 @@ npm run test:e2e
 
 ### Migrations
 
-```bash
+```sh
 # Example using docker (all remaining commands can also be used in the same way)
 docker-compose exec app npm run typeorm:migration:run
 
@@ -241,13 +242,46 @@ npm run schema:sync
 ## External Links
 
 - [NestJS](http://nestjs.com/)
+- [MonstraLab OSS template](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/blob/master/README.md)
 
 ## Troubleshooting
 
-```bash
+```sh
 # You must provide the correct relative or absolute path to -f option
 # When prompted for a password, type in the value of DATABASE_PASSWORD of `.env`
 export NODE_ENV=dev;
 npm run typeorm schema:drop;
 psql --dbname=$DB_NAME --username=$DB_USER --host=$DB_HOST --port=$DB_PORT -f ~/Downloads/example-dump.sql;
 ```
+
+## Acknowledgements
+
+The baseline for this project was taken from [MonstraLab OSS template](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/blob/master/README.md)
+
+### Sample implementations
+
+To view sample implementations based on this starter kit, please visit the
+[nestjs-sample-solutions](https://github.com/monstar-lab-oss/nestjs-sample-solutions)
+repository.
+
+### Starter kit Features
+
+One of our main principals has been to keep the starter kit as lightweight as possible.
+With that in mind, here are some of the features that we have added in this starter kit.
+
+| Feature                  | Info               | Progress |
+| ------------------------ | ------------------ | -------- |
+| Authentication           | JWT                | Done     |
+| Authorization            | RBAC (Role based)  | Done     |
+| ORM Integration          | TypeORM            | Done     |
+| DB Migrations            | TypeORM            | Done     |
+| Logging                  | winston            | Done     |
+| Request Validation       | class-validator    | Done     |
+| Pagination               | SQL offset & limit | Done     |
+| Docker Ready             | Dockerfile         | Done     |
+| Auto-generated OpenAPI   | -                  | Done     |
+| Auto-generated ChangeLog | -                  | WIP      |
+
+Apart from these features above, our start-kit comes loaded with a bunch of minor
+awesomeness like prettier integration, commit-linting husky hooks, package import
+sorting, docker-compose for database dependencies, etc.
