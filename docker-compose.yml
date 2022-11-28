@@ -3,15 +3,14 @@ version: '3.8'
 services:
   app:
     build:
-      context: .
       args:
         - APP_ENV
+      context: .
     command: npm run start:dev
-    ports:
-      - 3000:3000
-    volumes:
-      - ./:/usr/src/app
-      - node_modules:/usr/src/app/node_modules/
+    depends_on:
+      - pgsqldb
+    env_file:
+      - .env
     environment:
       APP_ENV: ${APP_ENV}
       APP_PORT: ${APP_PORT}
@@ -25,11 +24,18 @@ services:
       JWT_PUBLIC_KEY_BASE64: ${JWT_PUBLIC_KEY_BASE64}
       JWT_PRIVATE_KEY_BASE64: ${JWT_PRIVATE_KEY_BASE64}
       DEFAULT_ADMIN_USER_PASSWORD: ${DEFAULT_ADMIN_USER_PASSWORD}
-    depends_on:
-      - pgsqldb
+    expose:
+      - ${APP_PORT}
+    ports:
+      - ${APP_PORT}:3000
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules/
 
   pgsqldb:
     image: postgres:15
+    env_file:
+      - .env
     environment:
       POSTGRES_USER: '${DB_USER}'
       POSTGRES_PASSWORD: '${DB_PASS}'
@@ -53,14 +59,15 @@ services:
     ports:
       - ${TEST_DB_PORT}:5432
     restart: unless-stopped
-    # Uncomment below and volumes.pgsqldata-e2e if you need to debug DB state after E2E
+    # Leaving this commented ensures a fresh database every time the container spins up
+    # Uncomment (along with volumes.pgsqldata-e2e) only to debug DB state after E2E runs
     # volumes:
     #   - pgsqldata-e2e:/var/lib/postgresql/data
 
   adminer:
     image: adminer
     ports:
-      - 8080:8080
+      - ${ADMINER_PORT}:8080
     depends_on:
       - pgsqldb
 
