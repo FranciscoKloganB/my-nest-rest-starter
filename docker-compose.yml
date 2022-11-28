@@ -9,8 +9,6 @@ services:
     command: npm run start:dev
     depends_on:
       - pgsqldb
-    env_file:
-      - .env
     environment:
       APP_ENV: ${APP_ENV}
       APP_PORT: ${APP_PORT}
@@ -34,8 +32,6 @@ services:
 
   pgsqldb:
     image: postgres:15
-    env_file:
-      - .env
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
