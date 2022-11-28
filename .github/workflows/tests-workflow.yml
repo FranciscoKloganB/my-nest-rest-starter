@@ -8,6 +8,7 @@ jobs:
   test_pull_request:
     runs-on: ubuntu-latest
     env:
+      APP_ADMINER: 8000
       APP_ENV: test
       APP_PORT: 3000
       DB_HOST: localhost
