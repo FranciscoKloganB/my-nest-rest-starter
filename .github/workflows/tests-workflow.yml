@@ -3,6 +3,10 @@ name: tests
 on:
   pull_request:
     branches: [master, main]
+  workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: false
 
 env:
   ENVIRONMENT: "test"
@@ -32,12 +36,23 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm ci --ignore-scripts
-      - name: Run unit tests
+      # Skip post-install scripts here, as a malicious scripts can steal NODE_AUTH_TOKEN
+      - name: Install Dependencies
+        run: npm ci --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # `npm rebuild` will run all those post-install scripts for us
+      - run: npm rebuild && npm run prepare --if-present
+
+      - name: Jest Unit and Integration Runner
         run: npm test
-      - name: Build the docker-compose stack
+
+      - name: Build the Docker-Compose Stack
         run: docker-compose -f docker-compose.yml up -d pgsqldb-e2e
-      - name: Check running containers
+
+      - name: Check Running Containers
         run: docker ps -a
-      - name: Run e2e tests
+
+      - name: Jest Supertest E2E Test Runner
         run: sleep 5 && npm run test:e2e
