@@ -4,14 +4,6 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
   coveragePathIgnorePatterns: ['.module.ts$'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-      diagnostics: {
-        ignoreCodes: ['TS151001'],
-      },
-    },
-  },
   moduleFileExtensions: ['js', 'json', 'ts'],
   moduleNameMapper: {
     '@article/(.*)': '<rootDir>/src/article/$1',
@@ -31,7 +23,15 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
+    '^.+\\.(t|j)s$': [
+      'ts-jest',
+      {
+        isolatedModules: true,
+        diagnostics: {
+          ignoreCodes: ['TS151001'],
+        },
+      },
+    ],
   },
   verbose: true,
 };
