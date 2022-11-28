@@ -2,11 +2,15 @@ name: tests
 
 on:
   pull_request:
-    branches: [master]
+    branches: [master, main]
+
+env:
+  ENVIRONMENT: "test"
 
 jobs:
   test_pull_request:
     runs-on: ubuntu-latest
+    environment: test
     env:
       APP_ADMINER: 8000
       APP_ENV: test

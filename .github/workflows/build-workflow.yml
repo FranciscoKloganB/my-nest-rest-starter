@@ -2,11 +2,15 @@ name: build
 
 on:
   pull_request:
-    branches: [master]
+    branches: [master, main]
+
+env:
+  ENVIRONMENT: "staging"
 
 jobs:
   build_pull_request:
     runs-on: ubuntu-latest
+    environment: staging
 
     steps:
       - uses: actions/checkout@v3
