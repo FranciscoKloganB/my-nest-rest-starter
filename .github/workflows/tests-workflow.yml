@@ -23,12 +23,12 @@ jobs:
       # These are technically not necessary since we use TEST_DB_* for tests
       DB_HOST: localhost
       DB_PORT: 5433
-      DB_NAME: justcollected-db-e2e
+      DB_NAME: \%nest-rest-starter\%-db-e2e
       DB_USER: e2eusr
       DB_PASS: e2epwd
       TEST_DB_HOST: localhost
       TEST_DB_PORT: 5433
-      TEST_DB_NAME: justcollected-db-e2e
+      TEST_DB_NAME: \%nest-rest-starter\%-db-e2e
       TEST_DB_USER: e2eusr
       TEST_DB_PASS: e2epwd
       JWT_ACCESS_TOKEN_EXP_IN_SEC: 3600

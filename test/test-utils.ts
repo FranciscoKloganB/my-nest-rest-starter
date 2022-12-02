@@ -10,7 +10,7 @@ import { CreateUserInput } from '../src/user/dtos/user-create-input.dto';
 import { UserOutput } from '../src/user/dtos/user-output.dto';
 import { UserService } from '../src/user/services/user.service';
 
-export const TEST_DB_NAME = process.env.TEST_DB_NAME ?? 'justcollected-db-e2e';
+export const TEST_DB_NAME = process.env.TEST_DB_NAME ?? '%nest-rest-starter%-db-e2e';
 export const TEST_DB_HOST = process.env.TEST_DB_HOST ?? 'localhost';
 export const TEST_DB_PORT = +(process.env.TEST_DB_PORT ?? '5433');
 export const TEST_DB_USER = process.env.TEST_DB_USER ?? 'e2euser';

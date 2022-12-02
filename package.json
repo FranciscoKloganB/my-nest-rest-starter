@@ -2,10 +2,10 @@
   "contributors": [
     "Francisco Barros <francisco.teixeira.de.barros@outlook.com> (https://github.com/FranciscoKloganB)"
   ],
-  "description": "justcollected core API",
+  "description": "%nest-rest-starter% core API",
   "license": "UNLICENSED",
   "private": true,
-  "name": "justcollected-core",
+  "name": "%nest-rest-starter%-core",
   "version": "0.0.1",
   "scripts": {
     "prebuild": "rimraf dist",

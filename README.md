@@ -1,8 +1,27 @@
-# justcollected.com
+# \%nest-rest-starter\%.com
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Build Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/build/badge.svg)
 ![Tests Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/tests/badge.svg)
+
+## Make this template your own
+
+The very first step you must take in this project is simple:
+
+- Find all occurrences of `\%nest-rest-starter\%`
+- Replace them with your project's name composed of characters matching the regex:
+  - `/^[(a-z\-){+}]$/` (at least one character, all being lower case or hyphen)
+
+- Then go to your project's GitHub repository
+  - Under `Settings`, select `Environments` and create new environments
+    - To run the project's pipeline without any adaption we recommend `test`, `staging`
+    and, `production` being created; With these exact names!
+  - Under `Settings`, select `Secrets > Actions` and create two `Environment Secrets`
+  per each of the previously added environments:
+    - `JWT_PRIVATE_KEY_BASE64`
+    - `JWT_PUBLIC_KEY_BASE64`
+    - You can leave them as blank strings for now;
+      - We will teach you how to fill these in a later section: [generating pub/priv keys](#generate-public-and-private-key-pair-for-jwt-authentication)
 
 ## Before you read further
 
@@ -176,10 +195,10 @@ npm run start:prod
 
 ```sh
 # build image
-docker build -t justcollected .
+docker build -t \%nest-rest-starter\% .
 
 # run container from image
-docker run -p 3000:3000 --volume 'pwd':/usr/src/app --network --env-file .env justcollected
+docker run -p 3000:3000 --volume 'pwd':/usr/src/app --network --env-file .env \%nest-rest-starter\%
 
 # run using docker compose
 docker compose up
