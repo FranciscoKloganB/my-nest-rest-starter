@@ -16,7 +16,7 @@ export class AppLogger {
     this.logger = createLogger({
       transports: [
         new transports.Console({
-          silent: process.env.LOG_SILENT === 'true',
+          silent: process.env.LOG_SILENT === 'true' || process.env.LOG_SILENT === '1',
         }),
       ],
     });

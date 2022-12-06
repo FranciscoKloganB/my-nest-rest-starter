@@ -1,6 +1,8 @@
 import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { getAsyncError } from '@shared/test/utils';
+
 import { ROLE } from '../../auth/constants/role.constant';
 import { AppLogger } from '../../shared/logger/logger.service';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
@@ -171,11 +173,9 @@ describe('ArticleService', () => {
         message: 'error',
       });
 
-      try {
-        await service.getArticleById(ctx, id);
-      } catch (error) {
-        expect(error.message).toEqual('error');
-      }
+      const error = await getAsyncError<Error>(() => service.getArticleById(ctx, id));
+
+      expect(error.message).toEqual('error');
     });
   });
 

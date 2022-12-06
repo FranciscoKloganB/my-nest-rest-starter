@@ -20,6 +20,6 @@ export default (): any => ({
     refreshTokenExpiresInSec: parseInt(process.env.JWT_REFRESH_TOKEN_EXP_IN_SEC, 10),
   },
   logging: {
-    silent: process.env.LOG_SILENT === 'true',
+    silent: process.env.LOG_SILENT === 'true' || process.env.LOG_SILENT === '1',
   },
 });

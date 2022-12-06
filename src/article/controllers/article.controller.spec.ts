@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { getAsyncError } from '@shared/test/utils';
+
 import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
 import { AppLogger } from '../../shared/logger/logger.service';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
@@ -77,11 +79,11 @@ describe('ArticleController', () => {
         message: 'rejected',
       });
 
-      try {
-        await controller.createArticle(ctx, input);
-      } catch (error) {
-        expect(error.message).toEqual('rejected');
-      }
+      const error = await getAsyncError<Error>(() =>
+        controller.createArticle(ctx, input)
+      );
+
+      expect(error.message).toEqual('rejected');
     });
   });
 
