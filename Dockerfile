@@ -1,7 +1,7 @@
 # lts-hydrogen refers to v18
 # Using this instead of node:18 to avoid dependabot updates
 FROM node:lts-hydrogen as builder
-RUN npm install -g npm@9.1.2
+RUN npm install -g npm@latest
 
 WORKDIR /usr/src/app
 
