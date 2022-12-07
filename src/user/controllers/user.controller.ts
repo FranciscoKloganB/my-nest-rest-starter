@@ -12,22 +12,22 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ROLE } from '../../auth/constants/role.constant';
-import { Roles } from '../../auth/decorators/role.decorator';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../../auth/guards/roles.guard';
+import { ROLE } from '@auth/constants/role.constant';
+import { Roles } from '@auth/decorators/role.decorator';
+import { JwtAuthGuard } from '@auth/guards/jwt-auth.guard';
+import { RolesGuard } from '@auth/guards/roles.guard';
 import {
   BaseApiErrorResponse,
   BaseApiResponse,
   SwaggerBaseApiResponse,
-} from '../../shared/dtos/base-api-response.dto';
-import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
-import { AppLogger } from '../../shared/logger/logger.service';
-import { ReqContext } from '../../shared/request-context/req-context.decorator';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { UserOutput } from '../dtos/user-output.dto';
-import { UpdateUserInput } from '../dtos/user-update-input.dto';
-import { UserService } from '../services/user.service';
+} from '@shared/dtos/base-api-response.dto';
+import { PaginationParamsDto } from '@shared/dtos/pagination-params.dto';
+import { AppLogger } from '@shared/logger/logger.service';
+import { ReqContext } from '@shared/request-context/req-context.decorator';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+import { UserOutput } from '@user/dtos/user-output.dto';
+import { UpdateUserInput } from '@user/dtos/user-update-input.dto';
+import { UserService } from '@user/services/user.service';
 
 @ApiTags('users')
 @Controller('users')

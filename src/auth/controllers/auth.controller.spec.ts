@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { LoginInput } from '../dtos/auth-login-input.dto';
-import { RefreshTokenInput } from '../dtos/auth-refresh-token-input.dto';
-import { RegisterInput } from '../dtos/auth-register-input.dto';
-import { AuthTokenOutput } from '../dtos/auth-token-output.dto';
-import { AuthService } from '../services/auth.service';
+import { LoginInput } from '@auth/dtos/auth-login-input.dto';
+import { RefreshTokenInput } from '@auth/dtos/auth-refresh-token-input.dto';
+import { RegisterInput } from '@auth/dtos/auth-register-input.dto';
+import { AuthTokenOutput } from '@auth/dtos/auth-token-output.dto';
+import { AuthService } from '@auth/services/auth.service';
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+
 import { AuthController } from './auth.controller';
 
 describe('AuthController', () => {

@@ -1,14 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import {
+  CreateArticleInput,
+  UpdateArticleInput,
+} from '@article/dtos/article-input.dto';
+import { ArticleOutput } from '@article/dtos/article-output.dto';
+import { ArticleService } from '@article/services/article.service';
+import { PaginationParamsDto } from '@shared/dtos/pagination-params.dto';
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
 import { getAsyncError } from '@shared/test/utils';
+import { User } from '@user/entities/user.entity';
 
-import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { User } from '../../user/entities/user.entity';
-import { CreateArticleInput, UpdateArticleInput } from '../dtos/article-input.dto';
-import { ArticleOutput } from '../dtos/article-output.dto';
-import { ArticleService } from '../services/article.service';
 import { ArticleController } from './article.controller';
 
 describe('ArticleController', () => {

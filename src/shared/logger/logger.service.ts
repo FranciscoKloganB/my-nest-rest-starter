@@ -1,7 +1,7 @@
 import { Injectable, Scope } from '@nestjs/common';
 import { createLogger, Logger, transports } from 'winston';
 
-import { RequestContext } from '../request-context/request-context.dto';
+import { RequestContext } from '@shared/request-context/request-context.dto';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AppLogger {

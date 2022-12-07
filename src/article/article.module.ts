@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { JwtAuthStrategy } from '../auth/strategies/jwt-auth.strategy';
-import { SharedModule } from '../shared/shared.module';
-import { UserModule } from '../user/user.module';
+import { JwtAuthStrategy } from '@auth/strategies/jwt-auth.strategy';
+import { SharedModule } from '@shared/shared.module';
+import { UserModule } from '@user/user.module';
+
 import { ArticleController } from './controllers/article.controller';
 import { Article } from './entities/article.entity';
 import { ArticleRepository } from './repositories/article.repository';

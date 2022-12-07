@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ROLE } from './../../auth/constants/role.constant';
-import { Action } from './../../shared/acl/action.constant';
+import { ROLE } from '@auth/constants/role.constant';
+import { Action } from '@shared/acl/action.constant';
+
 import { UserAclService } from './user-acl.service';
 
 describe('UserAclService', () => {

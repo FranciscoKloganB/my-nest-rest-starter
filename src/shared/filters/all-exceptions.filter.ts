@@ -8,10 +8,10 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 
-import { REQUEST_ID_TOKEN_HEADER } from '../constants';
-import { BaseApiException } from '../exceptions/base-api.exception';
-import { AppLogger } from '../logger/logger.service';
-import { createRequestContext } from '../request-context/util';
+import { REQUEST_ID_TOKEN_HEADER } from '@shared/constants';
+import { BaseApiException } from '@shared/exceptions/base-api.exception';
+import { AppLogger } from '@shared/logger/logger.service';
+import { createRequestContext } from '@shared/request-context/util';
 
 @Catch()
 export class AllExceptionsFilter<T> implements ExceptionFilter {

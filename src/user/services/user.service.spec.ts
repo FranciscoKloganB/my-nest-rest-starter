@@ -2,12 +2,13 @@ import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 
-import { ROLE } from '../../auth/constants/role.constant';
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { UpdateUserInput } from '../dtos/user-update-input.dto';
-import { User } from '../entities/user.entity';
-import { UserRepository } from '../repositories/user.repository';
+import { ROLE } from '@auth/constants/role.constant';
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+import { UpdateUserInput } from '@user/dtos/user-update-input.dto';
+import { User } from '@user/entities/user.entity';
+import { UserRepository } from '@user/repositories/user.repository';
+
 import { UserService } from './user.service';
 
 describe('UserService', () => {

@@ -3,12 +3,16 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { UserOutput } from '../../user/dtos/user-output.dto';
-import { UserService } from '../../user/services/user.service';
-import { ROLE } from '../constants/role.constant';
-import { AuthTokenOutput, UserAccessTokenClaims } from '../dtos/auth-token-output.dto';
+import { ROLE } from '@auth/constants/role.constant';
+import {
+  AuthTokenOutput,
+  UserAccessTokenClaims,
+} from '@auth/dtos/auth-token-output.dto';
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+import { UserOutput } from '@user/dtos/user-output.dto';
+import { UserService } from '@user/services/user.service';
+
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {

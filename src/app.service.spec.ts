@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+
 import { AppService } from './app.service';
-import { AppLogger } from './shared/logger/logger.service';
-import { RequestContext } from './shared/request-context/request-context.dto';
 
 describe('AppService', () => {
   let service: AppService;

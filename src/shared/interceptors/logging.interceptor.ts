@@ -7,8 +7,8 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AppLogger } from '../logger/logger.service';
-import { createRequestContext } from '../request-context/util';
+import { AppLogger } from '@shared/logger/logger.service';
+import { createRequestContext } from '@shared/request-context/util';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {

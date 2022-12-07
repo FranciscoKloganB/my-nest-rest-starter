@@ -3,14 +3,17 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { plainToClass } from 'class-transformer';
 
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { UserOutput } from '../../user/dtos/user-output.dto';
-import { UserService } from '../../user/services/user.service';
-import { ROLE } from '../constants/role.constant';
-import { RegisterInput } from '../dtos/auth-register-input.dto';
-import { RegisterOutput } from '../dtos/auth-register-output.dto';
-import { AuthTokenOutput, UserAccessTokenClaims } from '../dtos/auth-token-output.dto';
+import { ROLE } from '@auth/constants/role.constant';
+import { RegisterInput } from '@auth/dtos/auth-register-input.dto';
+import { RegisterOutput } from '@auth/dtos/auth-register-output.dto';
+import {
+  AuthTokenOutput,
+  UserAccessTokenClaims,
+} from '@auth/dtos/auth-token-output.dto';
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+import { UserOutput } from '@user/dtos/user-output.dto';
+import { UserService } from '@user/services/user.service';
 
 @Injectable()
 export class AuthService {

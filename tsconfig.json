@@ -32,5 +32,8 @@
     "strictBindCallApply": false,
     "strictNullChecks": false,
     "target": "es2017"
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }

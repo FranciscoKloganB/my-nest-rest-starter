@@ -2,8 +2,9 @@ import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { DataSource } from 'typeorm';
 
-import { User } from '../../user/entities/user.entity';
-import { Article } from '../entities/article.entity';
+import { Article } from '@article/entities/article.entity';
+import { User } from '@user/entities/user.entity';
+
 import { ArticleRepository } from './article.repository';
 
 describe('ArticleRepository', () => {

@@ -13,7 +13,7 @@ import {
   MaxLength,
 } from 'class-validator';
 
-import { ROLE } from '../../auth/constants/role.constant';
+import { ROLE } from '@auth/constants/role.constant';
 
 export class CreateUserInput {
   @ApiPropertyOptional()

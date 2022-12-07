@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString, Length, MaxLength } from 'class-validator';
 
-import { ROLE } from '../constants/role.constant';
+import { ROLE } from '@auth/constants/role.constant';
 
 export class RegisterInput {
   @ApiProperty()

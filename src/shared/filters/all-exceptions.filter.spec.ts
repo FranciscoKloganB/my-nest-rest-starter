@@ -3,8 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { v4 as uuidv4 } from 'uuid';
 
-import { REQUEST_ID_TOKEN_HEADER } from '../constants';
-import { AppLogger } from '../logger/logger.service';
+import { REQUEST_ID_TOKEN_HEADER } from '@shared/constants';
+import { AppLogger } from '@shared/logger/logger.service';
+
 import { AllExceptionsFilter } from './all-exceptions.filter';
 
 const mockMessage1 = 'mock exception string';

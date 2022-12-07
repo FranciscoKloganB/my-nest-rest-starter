@@ -1,16 +1,20 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 
-import { Action } from '../../shared/acl/action.constant';
-import { Actor } from '../../shared/acl/actor.constant';
-import { AppLogger } from '../../shared/logger/logger.service';
-import { RequestContext } from '../../shared/request-context/request-context.dto';
-import { User } from '../../user/entities/user.entity';
-import { UserService } from '../../user/services/user.service';
-import { CreateArticleInput, UpdateArticleInput } from '../dtos/article-input.dto';
-import { ArticleOutput } from '../dtos/article-output.dto';
-import { Article } from '../entities/article.entity';
-import { ArticleRepository } from '../repositories/article.repository';
+import {
+  CreateArticleInput,
+  UpdateArticleInput,
+} from '@article/dtos/article-input.dto';
+import { ArticleOutput } from '@article/dtos/article-output.dto';
+import { Article } from '@article/entities/article.entity';
+import { ArticleRepository } from '@article/repositories/article.repository';
+import { Action } from '@shared/acl/action.constant';
+import { Actor } from '@shared/acl/actor.constant';
+import { AppLogger } from '@shared/logger/logger.service';
+import { RequestContext } from '@shared/request-context/request-context.dto';
+import { User } from '@user/entities/user.entity';
+import { UserService } from '@user/services/user.service';
+
 import { ArticleAclService } from './article-acl.service';
 
 @Injectable()

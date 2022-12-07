@@ -2,7 +2,7 @@ import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/com
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 
-import { STRATEGY_JWT_REFRESH } from '../constants/strategy.constant';
+import { STRATEGY_JWT_REFRESH } from '@auth/constants/strategy.constant';
 
 @Injectable()
 export class JwtRefreshGuard extends AuthGuard(STRATEGY_JWT_REFRESH) {
