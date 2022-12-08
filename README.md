@@ -1,4 +1,4 @@
-# \%nest-rest-starter\%.com
+# my-nest-rest-starter.com
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Build Badge](https://github.com/monstar-lab-oss/nestjs-starter-rest-api/workflows/build/badge.svg)
@@ -8,7 +8,7 @@
 
 The very first step you must take in this project is simple:
 
-- Find all occurrences of `\%nest-rest-starter\%`
+- Find all occurrences of `my-nest-rest-starter`
 - Replace them with your project's name composed of characters matching the regex:
   - `/^[(a-z\-){+}]$/` (at least one character, all being lower case or hyphen)
 
@@ -195,10 +195,10 @@ npm run start:prod
 
 ```sh
 # build image
-docker build -t \%nest-rest-starter\% .
+docker build -t my-nest-rest-starter .
 
 # run container from image
-docker run -p 3000:3000 --volume 'pwd':/usr/src/app --network --env-file .env \%nest-rest-starter\%
+docker run -p 3000:3000 --volume 'pwd':/usr/src/app --network --env-file .env my-nest-rest-starter
 
 # run using docker compose
 docker compose up

@@ -5,7 +5,7 @@
   "description": "%nest-rest-starter% core API",
   "license": "UNLICENSED",
   "private": true,
-  "name": "%nest-rest-starter%-core",
+  "name": "my-nest-rest-starter",
   "version": "0.0.1",
   "scripts": {
     "prebuild": "rimraf dist",
