@@ -16,12 +16,13 @@ The very first step you must take in this project is simple:
   - Under `Settings`, select `Environments` and create new environments
     - To run the project's pipeline without any adaption we recommend `test`, `staging`
     and, `production` being created; With these exact names!
-  - Under `Settings`, select `Secrets > Actions` and create two `Environment Secrets`
+  - Under `Settings`, select `Secrets > Actions` and create two `Environment`
   per each of the previously added environments:
     - `JWT_PRIVATE_KEY_BASE64`
     - `JWT_PUBLIC_KEY_BASE64`
     - You can leave them as blank strings for now;
       - We will teach you how to fill these in a later section: [generating pub/priv keys](#generate-public-and-private-key-pair-for-jwt-authentication)
+   - If you decide to keep on using `Dependabot`, non secret-environment variables which are not hard-coded on workflow files, as well as secret variables (environment, repository, and/or organization), must also be added to `Secrets > Actions > Dependabot`, otherwise the `Dependabot` Pull Requests will constantly fail. For the initial setup only the two variables above, need to be added to `Dependabot Secrets`.
 
 ## Before you read further
 
@@ -253,6 +254,19 @@ npm run schema:drop
 # We do this automatically on application start-up.
 npm run schema:sync
 ```
+## CI/CD and Deployments
+
+Any environment variable which is not a secret or is just a placeholder for test should be added to any workflows (`.github/workflows/*.yml` files) as the project grows. 
+
+- See [tests-workflow.yml example](https://github.com/FranciscoKloganB/nest-rest-starter/.github/workflows/tests-workflow.yml#L18);
+  - Note that some of the environment variables which are hard-coded here are typically **secret**
+  - But since these are used only during the `testing-workflow` and do not communicate with real systems, and instead communicate with transient dockerized containers (running as local processes on the host where the workflow is executing), they do not need to be treated as such!
+
+Any environment variable considered secret should be added as `Environment, Repository or Organization Secret` on GitHub. Examples include API KEYS, Database Connection Credentials, Public/Private Key pairs like the ones we created earlier (`JWT_PRIVATE_KEY_BASE64`/`JWT_PUBLIC_KEY_BASE64`) 
+
+- See [build-workflow example](https://github.com/FranciscoKloganB/nest-rest-starter/.github/workflows/build-workflow.yml#L17), which accesses the `staging` environment variables to load them into the workflow.
+- You can find the secrets dashboard at  `(repository) Settings > Secrets > Actions`
+- Any secret environment variable required to run the `testing` workflows, which is not hardcoded on the workflow itself should also be added a Dependabot Secrets. By default, pull requests created by Dependabot do not have access to any GitHub Secrets (for security purposes). Without this effort, all Dependabot pull requests will fail on the testing step!
 
 ## Architecture
 
