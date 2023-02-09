@@ -1,6 +1,16 @@
 {
   "recommendations": [
+    "aaron-bond.better-comments",
+    "alefragnani.bookmarks",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "davidanson.vscode-markdownlint",
+    "eamodio.gitlens",
     "esbenp.prettier-vscode",
-    "ms-vscode.vscode-typescript-tslint-plugin"
+    "firsttris.vscode-jest-runner",
+    "mikestead.dotenv",
+    "ms-vscode.vscode-typescript-next",
+    "rvest.vs-code-prettier-eslint",
+    "visualstudioexptteam.vscodeintellicode"
   ]
 }

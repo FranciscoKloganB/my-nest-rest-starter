@@ -1,16 +1,38 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "checkJs": true,
+    "composite": false,
     "declaration": true,
+    "declarationMap": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "module": "commonjs",
+    "inlineSources": false,
+    "isolatedModules": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "strict": true,
+    "strictBindCallApply": false,
+    "strictNullChecks": false,
+    "target": "ES2020",
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "@article/*": ["src/article/*"],
       "@auth/*": ["src/auth/*"],
@@ -22,17 +44,11 @@
        * If @src comes first in this array IDE will match it as the de-facto alias for
        * auto-importing since all modules in `src` folder are a match for src/*.
        */
-      "@src/*": ["src/*"]
-    },
-    "outDir": "./dist",
-    "removeComments": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "strictBindCallApply": false,
-    "strictNullChecks": false,
-    "target": "es2017"
+      "@src/*": ["src/*"],
+      "@test/*": ["test/*"]
+    }
   },
+  "display": "Default",
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   }

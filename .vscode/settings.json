@@ -11,6 +11,10 @@
   },
   "editor.rulers": [88],
   "editor.tabSize": 2,
+  "files.associations": {
+    ".env": "properties",
+    ".env.*": "properties"
+  },
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "prettier.enable": true,

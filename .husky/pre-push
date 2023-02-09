@@ -4,4 +4,3 @@
 . "$(dirname "$0")/common.sh"
 
 npm run test:cov
-npm run test:e2e

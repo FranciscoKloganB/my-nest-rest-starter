@@ -12,54 +12,130 @@ env:
   ENVIRONMENT: "test"
 
 jobs:
-  test_pull_request:
-    runs-on: ubuntu-20.04
+  lint:
+    name: 🛡 ESLint & Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🦖 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: 🔻 Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🪛 Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      # Runs eslint before prettier
+      - name: 🔬 Format
+        run: npm run format
+
+  typecheck:
+    name: 📠 TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🦖 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: 🔻 Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🪛 Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - name: 🔎 Type check
+        run: npm run typecheck --if-present
+
+  jest:
+    name: 🤡 Jest
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🦖 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: 🔻 Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🪛 Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+
+      # Skip post-install scripts here, as a malicious scripts can steal NODE_AUTH_TOKEN
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - name: 👮 Run Jest Unit and Integration Runners
+        run: npm run test:cov
+
+  supatest:
+    name: 🥘 Supatest
+    runs-on: ubuntu-latest
     environment: test
     env:
-      ADMINER_PORT: 8000
+      ADMINER_PORT: 8080
       APP_ENV: test
       APP_PORT: 3000
       # Setting DB_* env variables just to avoid the CLI warning in GitHub Actions
       # These are technically not necessary since we use TEST_DB_* for tests
       DB_HOST: localhost
-      DB_PORT: 5433
-      DB_NAME: my-nest-rest-starter-db-e2e
-      DB_USER: e2eusr
-      DB_PASS: e2epwd
-      TEST_DB_HOST: localhost
-      TEST_DB_PORT: 5433
-      TEST_DB_NAME: my-nest-rest-starter-db-e2e
-      TEST_DB_USER: e2eusr
-      TEST_DB_PASS: e2epwd
+      DB_PORT: 5455
+      DB_NAME: my-nest-rest-starter-db-test
+      DB_USER: root
+      DB_PASS: rootroot
+      DEFAULT_ADMIN_USER_PASSWORD: rootroot
       JWT_ACCESS_TOKEN_EXP_IN_SEC: 3600
       JWT_REFRESH_TOKEN_EXP_IN_SEC: 7200
       JWT_PUBLIC_KEY_BASE64: ${{ secrets.JWT_PUBLIC_KEY_BASE64 }}
       JWT_PRIVATE_KEY_BASE64: ${{ secrets.JWT_PRIVATE_KEY_BASE64 }}
-      DEFAULT_ADMIN_USER_PASSWORD: example_admin_pass
       SILENT_LOGS: false
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: 🦖 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: 🔻 Checkout repo
+        uses: actions/checkout@v3
+
+      # Instead of maintaining the variables above you can opt to use the approach below
+      # But you need to make sure you load the variables after copying them
+      # Comment the two steps below or the env block above!
+      # - name: 🏄 Copy test env vars
+      #   run: cp .env.test .env
+
+      # - name: 🍃 Loading .env for subsequent commands
+      #   run: node -e "require('dotenv').config();"
+
+      - name: 🪛 Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
-      # Skip post-install scripts here, as a malicious scripts can steal NODE_AUTH_TOKEN
-      - name: Install Dependencies
-        run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          node-version: 18.12.1
 
-      # `npm rebuild` will run all those post-install scripts for us
-      - run: npm rebuild && npm run prepare --if-present
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
 
-      - name: Jest Unit and Integration Runner
-        run: npm test
-
-      - name: Build the Docker-Compose Stack
+      - name: 🪛 Build the Docker-Compose Stack
         run: docker-compose -f docker-compose.yml up -d pgsqldb-e2e
 
-      - name: Check Running Containers
+      - name: 🐳 Check Running Containers
         run: docker ps -a
 
-      - name: Jest Supertest E2E Test Runner
+      - name: 🥷 Run Jest Supertest E2E Test Runner
         run: sleep 5 && npm run test:e2e

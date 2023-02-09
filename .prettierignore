@@ -1,14 +1,22 @@
-.github/
-.husky/
-.vscode/
-
-dist/
-node_modules/
-
-.envrc
-
-*.env*
-
-**/*.d.ts
-**/*.md
-**/coverage/
+# Folders
+/.github/**
+/.husky/**
+/.turbo/**
+/.vscode/**
+/**/.next/**
+/**/build/**
+/**/coverage/**
+/**/deploy/**
+/**/dist/**
+/**/node_modules/**
+/**/public/build/**
+/**/storybook-static/**
+# Files
+/**/.gitignore
+/**/.env
+/**/.envrc
+/**/.env.*
+/**/mockServiceWorker.js
+# Extensions
+/**/*.d.ts
+/**/*.md
