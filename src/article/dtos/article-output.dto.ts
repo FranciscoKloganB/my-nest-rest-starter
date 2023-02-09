@@ -1,31 +1,31 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose, Type } from 'class-transformer';
+import { ApiProperty } from "@nestjs/swagger"
+import { Expose, Type } from "class-transformer"
 
-import { AuthorOutput } from './author-output.dto';
+import { AuthorOutput } from "./author-output.dto"
 
 export class ArticleOutput {
   @Expose()
   @ApiProperty()
-  id: number;
+  id: number
 
   @Expose()
   @ApiProperty()
-  title: string;
+  title: string
 
   @Expose()
   @ApiProperty()
-  post: string;
+  post: string
 
   @Expose()
   @ApiProperty()
-  createdAt: Date;
+  createdAt: Date
 
   @Expose()
   @ApiProperty()
-  updatedAt: Date;
+  updatedAt: Date
 
   @Expose()
   @Type(() => AuthorOutput)
   @ApiProperty()
-  author: AuthorOutput;
+  author: AuthorOutput
 }

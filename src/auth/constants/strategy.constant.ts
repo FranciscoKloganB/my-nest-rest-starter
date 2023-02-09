@@ -1,3 +1,5 @@
-export const STRATEGY_LOCAL = 'local';
-export const STRATEGY_JWT_AUTH = 'jwt-auth';
-export const STRATEGY_JWT_REFRESH = 'jwt-refresh';
+const STRATEGY_LOCAL = "local"
+const STRATEGY_JWT_AUTH = "jwt-auth"
+const STRATEGY_JWT_REFRESH = "jwt-refresh"
+
+export { STRATEGY_JWT_AUTH, STRATEGY_JWT_REFRESH, STRATEGY_LOCAL }

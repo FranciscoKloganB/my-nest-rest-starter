@@ -5,29 +5,29 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm"
 
-import { User } from '@user/entities/user.entity';
+import { User } from "@user/entities/user.entity"
 
-@Entity('articles')
+@Entity("articles")
 export class Article {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  title: string;
+  title: string
 
   @Column()
-  post: string;
+  post: string
 
-  @CreateDateColumn({ name: 'createdAt' })
-  createdAt: Date;
+  @CreateDateColumn({ name: "createdAt" })
+  createdAt: Date
 
-  @UpdateDateColumn({ name: 'updatedAt' })
-  updatedAt: Date;
+  @UpdateDateColumn({ name: "updatedAt" })
+  updatedAt: Date
 
   @ManyToOne(() => User, (user) => user.articles, {
     eager: true,
   })
-  author: User;
+  author: User
 }

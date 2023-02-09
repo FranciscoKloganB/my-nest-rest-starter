@@ -6,41 +6,41 @@ import {
   PrimaryGeneratedColumn,
   Unique,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm"
 
-import { Article } from '@article/entities/article.entity';
+import { Article } from "@article/entities/article.entity"
 
-@Entity('users')
+@Entity("users")
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column({ length: 100 })
-  name: string;
+  name: string
 
   @Column()
-  password: string;
+  password: string
 
-  @Unique('username', ['username'])
+  @Unique("username", ["username"])
   @Column({ length: 200 })
-  username: string;
+  username: string
 
-  @Column('simple-array')
-  roles: string[];
+  @Column("simple-array")
+  roles: string[]
 
   @Column()
-  isAccountDisabled: boolean;
+  isAccountDisabled: boolean
 
-  @Unique('email', ['email'])
+  @Unique("email", ["email"])
   @Column({ length: 200 })
-  email: string;
+  email: string
 
-  @CreateDateColumn({ name: 'createdAt', nullable: true })
-  createdAt: Date;
+  @CreateDateColumn({ name: "createdAt", nullable: true })
+  createdAt: Date
 
-  @UpdateDateColumn({ name: 'updatedAt', nullable: true })
-  updatedAt: Date;
+  @UpdateDateColumn({ name: "updatedAt", nullable: true })
+  updatedAt: Date
 
   @OneToMany(() => Article, (article) => article.author)
-  articles: Article[];
+  articles: Article[]
 }

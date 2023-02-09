@@ -1,28 +1,30 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger"
+import { IsNotEmpty, IsOptional, IsString } from "class-validator"
 
-export class CreateArticleInput {
+class CreateArticleInput {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  title: string;
+  title: string
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  post: string;
+  post: string
 }
 
-export class UpdateArticleInput {
+class UpdateArticleInput {
   @ApiProperty()
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  title: string;
+  title: string
 
   @ApiProperty()
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  post: string;
+  post: string
 }
+
+export { CreateArticleInput, UpdateArticleInput }

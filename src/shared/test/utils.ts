@@ -1,17 +1,17 @@
 async function getAsyncError<T = unknown>(fn) {
   try {
-    await fn();
+    await fn()
   } catch (e) {
-    return e as T;
+    return e as T
   }
 }
 
 function getError<T = unknown>(fn) {
   try {
-    fn();
+    fn()
   } catch (e) {
-    return e as T;
+    return e as T
   }
 }
 
-export { getAsyncError, getError };
+export { getAsyncError, getError }

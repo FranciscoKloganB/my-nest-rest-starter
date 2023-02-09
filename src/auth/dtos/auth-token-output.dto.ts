@@ -1,27 +1,29 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
+import { ApiProperty } from "@nestjs/swagger"
+import { Expose } from "class-transformer"
 
-import { ROLE } from '@auth/constants/role.constant';
+import type { ROLE } from "@auth/constants/role.constant"
 
-export class AuthTokenOutput {
+class AuthTokenOutput {
   @Expose()
   @ApiProperty()
-  accessToken: string;
+  accessToken: string
 
   @Expose()
   @ApiProperty()
-  refreshToken: string;
+  refreshToken: string
 }
 
-export class UserAccessTokenClaims {
+class UserAccessTokenClaims {
   @Expose()
-  id: number;
+  id: number
   @Expose()
-  username: string;
+  username: string
   @Expose()
-  roles: ROLE[];
+  roles: ROLE[]
 }
 
-export class UserRefreshTokenClaims {
-  id: number;
+class UserRefreshTokenClaims {
+  id: number
 }
+
+export { AuthTokenOutput, UserAccessTokenClaims, UserRefreshTokenClaims }

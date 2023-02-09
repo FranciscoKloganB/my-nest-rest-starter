@@ -1,20 +1,20 @@
-import * as dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
+import * as dotenv from "dotenv"
+import { DataSource } from "typeorm"
 
-dotenv.config();
+dotenv.config()
 
 const typeOrmConfig = new DataSource({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : null,
   database: process.env.DB_NAME,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  entities: [__dirname + '/src/**/entities/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+  entities: [__dirname + "/src/**/entities/*.entity{.ts,.js}"],
+  host: process.env.DB_HOST,
+  migrations: [__dirname + "/migrations/**/*{.ts,.js}"],
   migrationsRun: false,
-  schema: 'public',
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : null,
+  schema: "public",
   synchronize: false,
-  type: 'postgres',
-});
+  type: "postgres",
+  username: process.env.DB_USER,
+})
 
-export default typeOrmConfig;
+export default typeOrmConfig

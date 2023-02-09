@@ -11,6 +11,7 @@
   },
   "editor.rulers": [88],
   "editor.tabSize": 2,
+  "eslint.validate": [ "javascript", "typescript"],
   "files.associations": {
     ".env": "properties",
     ".env.*": "properties"

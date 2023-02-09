@@ -1,31 +1,30 @@
-import { INestApplication } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
-import request from 'supertest';
+import type { INestApplication } from "@nestjs/common"
+import { Test } from "@nestjs/testing"
+import request from "supertest"
 
-import { AppModule } from './../src/app.module';
-import { closeDBAfterTest, createDBEntities, resetDBBeforeTest } from './test-utils';
+import { AppModule } from "./../src/app.module"
+import { closeDBAfterTest, createDBEntities, resetDBBeforeTest } from "./test-utils"
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
+describe("AppController (e2e)", () => {
+  let app: INestApplication
 
   beforeAll(async () => {
-    await resetDBBeforeTest();
-    await createDBEntities();
+    await resetDBBeforeTest()
+    await createDBEntities()
 
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    }).compile()
 
-    app = moduleRef.createNestApplication();
-    await app.init();
-  });
+    app = moduleRef.createNestApplication()
+    await app.init()
+  })
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
-  });
+  it("/ (GET)", () =>
+    request(app.getHttpServer()).get("/").expect(200).expect("Hello World!"))
 
   afterAll(async () => {
-    await app.close();
-    await closeDBAfterTest();
-  });
-});
+    await app.close()
+    await closeDBAfterTest()
+  })
+})

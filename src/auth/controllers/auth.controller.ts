@@ -7,38 +7,38 @@ import {
   Post,
   UseGuards,
   UseInterceptors,
-} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+} from "@nestjs/common"
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger"
 
-import { LoginInput } from '@auth/dtos/auth-login-input.dto';
-import { RefreshTokenInput } from '@auth/dtos/auth-refresh-token-input.dto';
-import { RegisterInput } from '@auth/dtos/auth-register-input.dto';
-import { RegisterOutput } from '@auth/dtos/auth-register-output.dto';
-import { AuthTokenOutput } from '@auth/dtos/auth-token-output.dto';
-import { JwtRefreshGuard } from '@auth/guards/jwt-refresh.guard';
-import { LocalAuthGuard } from '@auth/guards/local-auth.guard';
-import { AuthService } from '@auth/services/auth.service';
+import { LoginInput } from "@auth/dtos/auth-login-input.dto"
+import { RefreshTokenInput } from "@auth/dtos/auth-refresh-token-input.dto"
+import { RegisterInput } from "@auth/dtos/auth-register-input.dto"
+import { RegisterOutput } from "@auth/dtos/auth-register-output.dto"
+import { AuthTokenOutput } from "@auth/dtos/auth-token-output.dto"
+import { JwtRefreshGuard } from "@auth/guards/jwt-refresh.guard"
+import { LocalAuthGuard } from "@auth/guards/local-auth.guard"
+import { AuthService } from "@auth/services/auth.service"
 import {
   BaseApiErrorResponse,
   BaseApiResponse,
   SwaggerBaseApiResponse,
-} from '@shared/dtos/base-api-response.dto';
-import { AppLogger } from '@shared/logger/logger.service';
-import { ReqContext } from '@shared/request-context/req-context.decorator';
-import { RequestContext } from '@shared/request-context/request-context.dto';
+} from "@shared/dtos/base-api-response.dto"
+import { AppLogger } from "@shared/logger/logger.service"
+import { ReqContext } from "@shared/request-context/req-context.decorator"
+import { RequestContext } from "@shared/request-context/request-context.dto"
 
-@ApiTags('auth')
-@Controller('auth')
+@ApiTags("auth")
+@Controller("auth")
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly logger: AppLogger
+    private readonly logger: AppLogger,
   ) {
-    this.logger.setContext(AuthController.name);
+    this.logger.setContext(AuthController.name)
   }
-  @Post('login')
+  @Post("login")
   @ApiOperation({
-    summary: 'User login API',
+    summary: "User login API",
   })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -53,18 +53,18 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor)
   login(
     @ReqContext() ctx: RequestContext,
-    @Body() _credential: LoginInput
+    @Body() _credential: LoginInput,
   ): BaseApiResponse<AuthTokenOutput> {
-    this.logger.log(ctx, `${this.login.name} was called`);
+    this.logger.log(ctx, `${this.login.name} was called`)
 
-    const authToken = this.authService.login(ctx);
+    const authToken = this.authService.login(ctx)
 
-    return { data: authToken, meta: {} };
+    return { data: authToken, meta: {} }
   }
 
-  @Post('register')
+  @Post("register")
   @ApiOperation({
-    summary: 'User registration API',
+    summary: "User registration API",
   })
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -72,15 +72,16 @@ export class AuthController {
   })
   async registerLocal(
     @ReqContext() ctx: RequestContext,
-    @Body() input: RegisterInput
+    @Body() input: RegisterInput,
   ): Promise<BaseApiResponse<RegisterOutput>> {
-    const registeredUser = await this.authService.register(ctx, input);
-    return { data: registeredUser, meta: {} };
+    const registeredUser = await this.authService.register(ctx, input)
+
+    return { data: registeredUser, meta: {} }
   }
 
-  @Post('refresh-token')
+  @Post("refresh-token")
   @ApiOperation({
-    summary: 'Refresh access token API',
+    summary: "Refresh access token API",
   })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -95,12 +96,12 @@ export class AuthController {
   @UseInterceptors(ClassSerializerInterceptor)
   async refreshToken(
     @ReqContext() ctx: RequestContext,
-    @Body() _credential: RefreshTokenInput
+    @Body() _credential: RefreshTokenInput,
   ): Promise<BaseApiResponse<AuthTokenOutput>> {
-    this.logger.log(ctx, `${this.refreshToken.name} was called`);
+    this.logger.log(ctx, `${this.refreshToken.name} was called`)
 
-    const authToken = await this.authService.refreshToken(ctx);
+    const authToken = await this.authService.refreshToken(ctx)
 
-    return { data: authToken, meta: {} };
+    return { data: authToken, meta: {} }
   }
 }
