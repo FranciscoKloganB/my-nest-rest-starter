@@ -27,7 +27,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.8.0",
     "swagger-ui-express": "^4.6.2",
-    "typeorm": "^0.3.12",
+    "typeorm": "^0.3.14",
     "uuid": "^9.0.0",
     "winston": "^3.8.2",
     "zod": "^3.21.4"
